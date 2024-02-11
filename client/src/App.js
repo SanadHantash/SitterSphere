@@ -1,8 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import TestPage from './pages/TestPage';
 import './App.css';
 import './index.css';
+import Home from './Pages/Home';
 
 
 function App() {
@@ -11,7 +11,7 @@ function App() {
       <header className="App-header">
       <BrowserRouter>
           <Routes>
-          <Route path="/" element={<TestPage />} />
+          <Route path="/" element={<Home />} />
           </Routes>
         </BrowserRouter>
       </header>
