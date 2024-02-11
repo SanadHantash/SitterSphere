@@ -47,24 +47,26 @@ Home.topratedsitters = async () => {
   };
 
 
-Home.newRequests = async () => {
+Home.recentrequests = async () => {
     try {
       const queryResult = await db.query(`
       SELECT 
-        courses.id,
-        courses.title,
-        courses.description,
-        courses.trainer,
-        REPLACE(courses.image, 'https://storage.googleapis.com/wiseassist-b8a8a.appspot.com/images/', '') AS image,
-        categories.category,
-        courses.start_time,
-        courses.end_time,
-        courses.site
+        requests.id,
+        requests.title,
+        requests.description,
+        requests.non_smoker,
+        requests.drivers_license,
+        requests.cooking,
+        requests.draw,
+        requests.first_aid,
+        REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
+        requests.children_count,
+        requests.start_time,
+        requests.end_time
       FROM 
-        courses
-        INNER JOIN categories ON categories.id = courses.category_id
+      requests
       WHERE 
-      courses.is_deleted = false and (courses.category_id = 3 or courses.category_id = 4) order by created_at desc limit 5;
+      requests.is_deleted = false  order by created_at desc limit 5;
     `);
       
     const formattedResult = await Promise.all(
@@ -93,7 +95,7 @@ Home.newRequests = async () => {
             
           }
       
-          const imageRef = storage.bucket().file('images/' + row.image);
+          const imageRef = storage.bucket().file('requests/' + row.image);
           const [url] = await imageRef.getSignedUrl({ action: 'read', expires: '01-01-2500' });
           row.image = url;
       

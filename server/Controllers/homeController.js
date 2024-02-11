@@ -12,21 +12,21 @@ const topratedsitters = async (req, res, next) => {
       res.status(500).json({ success: false, error: 'Error in getting sitters' });
     }
   };
-const allelderliesworkshops = async (req, res, next) => {
+const recentrequests = async (req, res, next) => {
 
     try {
-      const courses = await Home.allelderliesworkshops();
-      res.status(200).json({ success: true, courses });
+      const requests = await Home.recentrequests();
+      res.status(200).json({ success: true, requests });
     } 
     
     catch (err) {
       console.error(err);
-      res.status(500).json({ success: false, error: 'Error in getting workshops' });
+      res.status(500).json({ success: false, error: 'Error in getting requests' });
     }
   };
 
 
   module.exports = {
     topratedsitters,
-    allelderliesworkshops
+    recentrequests
   }
