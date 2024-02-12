@@ -63,12 +63,13 @@ function Recentrequests() {
     // dots: true,
     infinite: true,
     speed: 2500,
-    slidesToShow: 1,
+    slidesToShow: 2,
     slidesToScroll: 1,
     autoplay: true,
     autoplaySpeed: 5000,
     prevArrow: <CustomPrevArrow />,
     nextArrow: <CustomNextArrow />,
+  
   };
 
   useEffect(() => {
@@ -102,7 +103,85 @@ function Recentrequests() {
           </Link>
         </div>
       </div>
-      <section>
+
+      <section >
+  <Slider {...settings}>
+    {requests.map((request, index) => (
+      <div key={index} className="mx-auto max-w-screen-2xl px-4 py-10 sm:px-6 lg:px-8">
+        <article className="flex flex-wrap md:flex-nowrap shadow-lg mx-auto max-w-3xl group cursor-pointer transform duration-500 hover:-translate-y-1">
+          <img className="w-full max-h-full object-cover md:w-52" src={request.image} alt={request.title} />
+          <div className="">
+            <div className="p-5 pb-10">
+              <h1 className="text-2xl font-semibold text-gray-800 mt-4">
+                {request.title}
+              </h1>
+              <p className="text-base text-gray-400 mt-2">
+                {request.description}
+              </p>
+            </div>
+            <div className="bg-[#F9F9E0] p-5 w-full">
+              <div className="sm:flex sm:justify-between">
+                <div>
+                <div className="flex items-center mt-4 text-gray-600">
+                      {request.cooking && (
+                        <img
+                          src={cooking}
+                          alt="Cooking Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+
+                      {request.draw && (
+                        <img
+                          src={draw}
+                          alt="draw platte Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+
+                      {request.drivers_license && (
+                        <img
+                          src={driver}
+                          alt="driver license Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+
+                      {request.first_aid && (
+                        <img
+                          src={firstaid}
+                          alt="firstaid Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+                      {request.non_smoker && (
+                        <img
+                          src={nonsmoker}
+                          alt="nonsmoker Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+                    </div>
+
+                    <Link
+                      to={`/requestsDetail/${request.id}`}
+                      className="mt-8 inline-block rounded border border-[#FF90BC] bg-[#FF90BC] px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text[#FF90BC] focus:outline-none focus:ring active:text-[#FF90BC]"
+                    >
+                      Learn More
+                    </Link>
+                  </div>
+                  
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+    ))}
+  </Slider>
+</section>
+
+
+      {/* <section>
         <Slider {...settings}>
           {requests.map((request, index) => (
             <div
@@ -181,7 +260,7 @@ function Recentrequests() {
             </div>
           ))}
         </Slider>
-      </section>
+      </section> */}
     </>
   );
 }
