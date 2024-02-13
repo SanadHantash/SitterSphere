@@ -70,11 +70,24 @@ const mydetails = async (req,res)=>{
 
 }
 
+const allrequests = async (req, res, next) => {
+
+  try {
+    const requests = await Family.allrequests();
+    res.status(200).json({ success: true, requests });
+  } 
+  
+  catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: 'Error in getting requests' });
+  }
+};
 
 
 
 module.exports = {
     addrequest,
+    allrequests,
     mydetails
   };
   

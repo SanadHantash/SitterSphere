@@ -96,7 +96,7 @@ function Recentrequests() {
           </h3>
         </div>
         <div className="mt-6  px-6 md:mt-0">
-          <Link to="/request">
+          <Link to="/requests">
             <button className="linear rounded-[20px] bg-[#FF90BC] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#FFC0D9] active:bg-brand-700">
               View All
             </button>

@@ -53,6 +53,7 @@ Home.recentrequests = async () => {
       SELECT 
         requests.id,
         requests.title,
+        users.user_name,
         requests.description,
         requests.non_smoker,
         requests.drivers_license,
@@ -65,8 +66,10 @@ Home.recentrequests = async () => {
         requests.end_time
       FROM 
       requests
+      INNER JOIN 
+      users ON users.id = requests.user_id
       WHERE 
-      requests.is_deleted = false  order by created_at desc limit 5;
+      requests.is_deleted = false and users.is_deleted=false order by requests.created_at desc limit 5;
     `);
       
     const formattedResult = await Promise.all(

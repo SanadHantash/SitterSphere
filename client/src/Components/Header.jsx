@@ -53,7 +53,7 @@ function Header() {
               <Link to="/signup">
                 <button
                   type="button"
-                  className="shadow-sm shadow-[#292742] text-white bg-indigo-950 hover:bg-indigo-900 font-medium rounded-lg text-sm px-2 py-2.5 md:ml-1 md:px-10 "
+                  className="shadow-sm shadow-[#292742] text-white bg-[#FF90BC] hover:bg-[#FFC0D9] font-medium rounded-lg text-sm px-2 py-2.5 md:ml-1 md:px-10 "
                 >
                   Sign Up
                 </button>
@@ -159,7 +159,7 @@ function Header() {
 
               <li>
                 <Link
-                  to="/courses"
+                  to="/sitters"
                   class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-indigo-900 lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   Babysitters
@@ -167,7 +167,7 @@ function Header() {
               </li>
               <li>
                 <Link
-                  to="/workshop"
+                  to="/requests"
                   class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-indigo-900  lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
                 >
                   FamiliesRequests

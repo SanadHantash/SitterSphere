@@ -99,7 +99,7 @@ function Toprated() {
           </h3>
         </div>
         <div className="mt-6 md:mt-0 px-6">
-          <Link to="/">
+          <Link to="/sitters">
             <button className="linear rounded-[20px] bg-[#FF90BC] px-4 py-2 text-base font-medium text-white transition duration-200 hover:bg-[#FFC0D9] active:bg-brand-700">
               View All
             </button>

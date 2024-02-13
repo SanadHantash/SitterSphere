@@ -6,9 +6,9 @@ const Sitter = require("../Models/sitterModel");
 const addmydetails = async (req, res) => {
     try {
         const userID = req.user.userId;
-        const { education, description, ages, drivers_license, non_smoker, cooking, draw, first_aid,experince_level } = req.body;
+        const { education, description, ages, drivers_license, non_smoker, cooking, draw, first_aid,experience_level } = req.body;
         
-        await Sitter.addmydetails(userID, education, description, ages, drivers_license, non_smoker, cooking, draw, first_aid,experince_level);
+        await Sitter.addmydetails(userID, education, description, ages, drivers_license, non_smoker, cooking, draw, first_aid,experience_level);
 
         res.status(201).json({ success: true, message: "Your details added successfully" });
     } catch (err) {
@@ -33,9 +33,22 @@ const mydetails = async (req,res)=>{
 
 
 
+const allsitters = async(req,res)=>{
+    try{
+        const sitters = await Sitter.allsitters();
+        res.status(201).json({ success: true, sitters });
+    }   catch (err) {
+        console.error("Error adding details:", err);
+        res.status(500).json({ success: false, error: "Sitters get failed" });
+    }
+}
+
+
+
 
 module.exports = {
     addmydetails,
-    mydetails
+    mydetails,
+    allsitters
   };
   

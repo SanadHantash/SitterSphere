@@ -5,6 +5,8 @@ import './index.css';
 import Home from './Pages/Home';
 import Header from './Components/Header';
 import Footer from './Components/Footer';
+import BabySitters from './Pages/BabySitters';
+import Requests from './Pages/Requests';
 //import { useAuth } from "./Context/AuthContext";
 
 function App() {
@@ -16,7 +18,8 @@ function App() {
       <Header />
           <Routes>
           <Route path="/" element={<Home />} />
-          
+          <Route path="/sitters" element={<BabySitters />} />
+          <Route path="/requests" element={<Requests />} />
           </Routes>
           <Footer />
         </BrowserRouter>
