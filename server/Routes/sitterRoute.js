@@ -4,8 +4,8 @@ const app = express();
 const router = express.Router();
 const middleware = require("../middleware/authorization");
 
-router.post("/sitter/addmydetail",middleware.authorize, sitterController.addmydetails);
-router.get("/sitter/mydetail",middleware.authorize, sitterController.mydetails);
+router.post("/sitters/addmydetail",middleware.authorize, sitterController.addmydetails);
 router.get("/sitters", sitterController.allsitters);
+router.get("/sitter/:id/detail",sitterController.detail);
 
 module.exports = router;
