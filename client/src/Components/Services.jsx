@@ -4,20 +4,20 @@ import img2 from "../Assets/hero.jpg";
 import img3 from "../Assets/baby.jpg";
 function Services() {
   return (
-    <div className="text-center p-8" style={{ backgroundImage: "linear-gradient( #FF90BC, #F9F9E0)" }}>
-      <h2 className="font-bold text-2xl sm:text-3xl md:text-4xl lg:text-5xl">
+    <div className="text-center p-8 bg-gradient-to-b from-[#FF90BC] to-[#F9F9E0]">
+      <h2 className="font-bold text-3xl sm:text-3xl md:text-4xl lg:text-5xl">
         Why to choose US?
       </h2>
 
       <div className="flex flex-wrap items-center mt-20 text-left text-center">
         <div className="w-full md:w-3/5 lg:w-1/2 px-4">
-          <img src={img1} alt="gem" className="inline-block shadow-lg" />
+          <img src={img1} alt="gem" className="inline-block rounded-full shadow-lg" />
         </div>
         <div className="w-full md:w-2/5 lg:w-1/2 px-4 text-center md:text-left lg:pl-12">
-          <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl">
+          <h3 className="font-extrabold mt-8 text-3xl md:mt-0 sm:text-2xl">
             Ensuring Your Baby's Happiness in Our Care
           </h3>
-          <p className="sm:text-lg mt-6">
+          <p className="sm:text-2xl font-semibold mt-6">
             signifies our unwavering dedication to providing a nurturing
             environment where your baby thrives. With experienced caregivers,
             responsive interactions, and enriching activities, we prioritize
@@ -34,14 +34,14 @@ function Services() {
           <img
             src={img2}
             alt="project members"
-            className="inline-block rounded shadow-lg"
+            className="inline-block rounded-full shadow-lg"
           />
         </div>
         <div className="w-full md:w-2/5 lg:w-1/2 px-4 md:order-first text-center md:text-left lg:pr-12">
-          <h3 className="font-bold mt-8 text-xl md:mt-0 sm:text-2xl">
+          <h3 className="font-black mt-8 text-3xl md:mt-0 sm:text-2xl">
             Ensuring Your Baby's Safety with Us
           </h3>
-          <p className="sm:text-lg mt-6">
+          <p className="sm:text-2xl font-semibold mt-6">
             encapsulates our unwavering commitment to providing a safe
             environment for your little one. We prioritize your baby's
             well-being through meticulous supervision, stringent safety

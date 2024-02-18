@@ -6,6 +6,6 @@ const middleware = require("../middleware/authorization");
 
 router.post("/sitters/addmydetail",middleware.authorize, sitterController.addmydetails);
 router.get("/sitters", sitterController.allsitters);
-router.get("/sitter/:id/detail",sitterController.detail);
+router.get("/sitter/detail/:id",sitterController.detail);
 
 module.exports = router;

@@ -24,7 +24,7 @@ function Requests() {
     {requests && requests.requests ? (
         <div className="mt-20 my-8 lg:my-10 lg:mt-20 container px-6 mx-auto md:flex-row items-start md:items-center justify-between pb-4 border-b border-gray-300 ">
             {requests.requests.map((request, index) => (
-                <div key={index} className="max-w-screen-lg mx-auto p-5 sm:p-10 md:p-16 mt-20 lg:mt-15 my-8 lg:my-10" style={{ background: 'linear-gradient(to right, #FFC0D9, #F9F9E0)' }}>
+                <div key={index} className="max-w-screen-lg mx-auto bg-gradient-to-r from-[#FFC0D9] to-[#F9F9E0] p-5 sm:p-10 md:p-16 mt-20 lg:mt-15 my-8 lg:my-10">
                     <div className="mb-10 rounded overflow-hidden flex flex-col mx-auto">
                         <a href="#" className="text-xl sm:text-4xl font-semibold inline-block hover:text-[#FF90BC] transition duration-500 ease-in-out inline-block mb-2">{request.title}</a>
                         <div className="relative">
@@ -36,17 +36,8 @@ function Requests() {
                         <p className="text-gray-700 py-5 text-base leading-8">
                             {request.description}
                         </p>
-                        <div className="py-5 text-sm font-regular text-gray-900 flex">
-                            <span className="mr-3 flex flex-row items-center">
-                                {/* Your SVG or other content */}
-                                <span className="ml-1"></span>
-                            </span>
-                            <a href="#" className="flex flex-row items-center hover:text-indigo-600">
-                                {/* Your SVG or other content */}
-                                <span className="ml-1"></span>
-                            </a>
-                        </div>
-                        <hr />
+                       
+                       
                     </div>
                 </div>
             ))}

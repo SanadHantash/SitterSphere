@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import card from "../Assets/card.jpg"
+import card from "../Assets/card.jpg";
+
 function Toprated() {
   const [sitters, setSitters] = useState([]);
   useEffect(() => {
@@ -107,45 +108,59 @@ function Toprated() {
         </div>
       </div>
 
-
       <div className="bg-white flex justify-center items-center py-6 md:w-full">
         <div className="container mx-auto px-4 ">
-  <Slider {...settings}>
-    {sitters && sitters.sitters ? (
-      sitters.sitters.map((sitter) => (
-        <div key={sitter.id} className="mb-8">
-          <div className="rounded-t-lg h-32 overflow-hidden">
-            <img className="object-cover object-top w-full" src={card} alt="cardbackground" />
-          </div>
-          <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
-            <img className="object-cover object-center h-32" src={sitter.image} alt={sitter.user_name} />
-          </div>
-          <div className="text-center mt-2">
-            <h2 className="font-semibold">{sitter.user_name}</h2>
-            <p className="text-gray-500">Experience: {sitter.experience_level}</p>
-          </div>
-          <ul className="py-4 mt-2 text-gray-700 flex items-center justify-around">
-            <li className="flex flex-col items-center justify-around">
-              <svg className="w-4 fill-current text-[#FF90BC]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
-                <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
-              </svg>
-              <div>{sitter.rate}</div>
-            </li>
-          </ul>
-          <div className="p-4 border-t mx-8 mt-2">
-            <button className="w-1/2 block mx-auto rounded-full bg-[#FF90BC] hover:shadow-lg font-semibold text-white px-6 py-2">show more</button>
-          </div>
+          <Slider {...settings}>
+            {sitters && sitters.sitters ? (
+              sitters.sitters.map((sitter) => (
+                <div key={sitter.id} className="mb-8">
+                  <div className="rounded-t-lg h-32 overflow-hidden">
+                    <img
+                      className="object-cover object-top w-full"
+                      src={card}
+                      alt="cardbackground"
+                    />
+                  </div>
+                  <div className="mx-auto w-32 h-32 relative -mt-16 border-4 border-white rounded-full overflow-hidden">
+                    <img
+                      className="object-cover object-center h-32"
+                      src={sitter.image}
+                      alt={sitter.user_name}
+                    />
+                  </div>
+                  <div className="text-center mt-2">
+                    <h2 className="font-semibold">{sitter.user_name}</h2>
+                    <p className="text-gray-500">
+                      Experience: {sitter.experience_level}
+                    </p>
+                  </div>
+                  <ul className="py-4 mt-2 text-gray-700 flex items-center justify-around">
+                    <li className="flex flex-col items-center justify-around">
+                      <svg
+                        className="w-4 fill-current text-[#FF90BC]"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                      >
+                        <path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z" />
+                      </svg>
+                      <div>{sitter.rate}</div>
+                    </li>
+                  </ul>
+                  <div className="p-4 border-t mx-8 mt-2">
+                    <Link to={`/babysitterDetails/${sitter.id}`}>
+                      <button className="w-1/2 block mx-auto rounded-full bg-[#FF90BC] hover:shadow-lg font-semibold text-white px-6 py-2">
+                        show more
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              ))
+            ) : (
+              <p>Loading...</p>
+            )}
+          </Slider>
         </div>
-      ))
-    ) : (
-      <p>Loading...</p>
-    )}
-  </Slider>
-</div>
-</div>
-
-
-
+      </div>
     </>
   );
 }

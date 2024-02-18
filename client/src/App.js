@@ -7,6 +7,7 @@ import Header from './Components/Header';
 import Footer from './Components/Footer';
 import BabySitters from './Pages/BabySitters';
 import Requests from './Pages/Requests';
+import BabySitterdetail from './Pages/BabySitterdetail';
 //import { useAuth } from "./Context/AuthContext";
 
 function App() {
@@ -20,6 +21,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/sitters" element={<BabySitters />} />
           <Route path="/requests" element={<Requests />} />
+          <Route path="/babysitterDetails/:id" element={<BabySitterdetail />}/>
           </Routes>
           <Footer />
         </BrowserRouter>

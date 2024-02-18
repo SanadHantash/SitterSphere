@@ -26,9 +26,9 @@ function BabySitters() {
 {sitters && sitters.sitters ? (
   <div className="mt-20 my-8 lg:my-10 lg:mt-20 container px-6 mx-auto md:flex-row items-start md:items-center justify-between pb-4 border-b border-gray-300 ">
     {sitters.sitters.map((sitter, index) => (
-      <div key={sitter.id} className="card w-96 glass" style={{ background: 'linear-gradient(to right, #FFC0D9, #F9F9E0)', display: 'inline-block', margin: '10px', padding: '10px', width: '18%'}}>
+      <div key={sitter.id} className="card w-96 glass inline-block bg-gradient-to-r from-[#FFC0D9] to-[#F9F9E0] m-10 p-10 w-18p">
           <figure>
-          <img src={sitter.image} alt={sitter.user_name} style={{ display: 'block', margin: 'auto' }} />
+          <img className="block m-auto" src={sitter.image} alt={sitter.user_name}  />
         </figure>
         <div className="card-body">
           <h2 className="card-title text-[#FF90BC] font-bold">{sitter.user_name}</h2>
@@ -37,7 +37,7 @@ function BabySitters() {
           <button className="w-100 block mx-auto rounded-full bg-[#FF90BC] hover:shadow-lg font-semibold text-white px-6 py-2">show more</button>
           </div>
         </div>
-        {(index + 1) % 4 === 0 && <div className="w-full md:hidden lg:hidden xl:hidden"></div>}
+       
       </div>
     ))}
   </div>

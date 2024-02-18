@@ -80,7 +80,7 @@ Sitter.allsitters = async () => {
 Sitter.detail = async (sitterID) => {
   try {
     const result = await db.query(
-      `select sitters.id,sitters.description,sitters.education,
+      `select sitters.id,sitters.description,sitters.education,sitters.experience_level,sitters.rate,
       users.user_name,
       REPLACE(users.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/BabySitters/', '') AS image
       ,sitters."0_12_months",sitters."1_2_years",sitters."2_3_years",sitters."3_5_years",sitters."+5_years",
