@@ -7,11 +7,29 @@ import years1_2 from "../Assets/1-2years.svg";
 import years2_3 from "../Assets/1-2years.svg";
 import years3_5 from "../Assets/2-3years.svg";
 import years5 from "../Assets/5+years.svg";
-import not0_12 from "../Assets/0-12months(not).svg"
-import not1_2 from "../Assets/1-2years(not).svg"
-import not2_3 from "../Assets/2-3years(not).svg"
-import not3_5 from "../Assets/3-5years(not).svg"
-import not5 from "../Assets/5+years(not).svg"
+import not0_12 from "../Assets/0-12months(not).svg";
+import not1_2 from "../Assets/1-2years(not).svg";
+import not2_3 from "../Assets/2-3years(not).svg";
+import not3_5 from "../Assets/3-5years(not).svg";
+import not5 from "../Assets/5+years(not).svg";
+
+import cooking from "../Assets/cooking.svg";
+import firstaid from "../Assets/firstaid.svg";
+import nonsmoker from "../Assets/nonsmoker.svg";
+import draw from "../Assets/draw.svg";
+import car from "../Assets/car.svg";
+import driver from "../Assets/drive.svg";
+import music from "../Assets/music.svg";
+import reading from "../Assets/reading.svg";
+ import notmusic from "../Assets/music(not).svg";
+import notcooking from "../Assets/cooking(not).svg";
+import notcar from "../Assets/car(not).svg";
+import notdraw from "../Assets/draw(not).svg";
+import notdrive from "../Assets/drive(not).svg";
+import notreading from "../Assets/reading(not).svg";
+import smoker from "../Assets/nonsmoker(not).svg";
+import notfirstaid from "../Assets/firstaid(not).svg";
+
 
 
 function BabySitterdetail() {
@@ -72,6 +90,10 @@ function BabySitterdetail() {
         </blockquote>
       </div>
 
+      <h1 className="text-3xl text-center font-bold mt-20">
+        Provides care for ages
+      </h1>
+
       <section class="text-gray-700 body-font">
         <div class="container px-4 py-20 mx-auto">
           <div class="flex flex-wrap -m-4 text-center">
@@ -90,7 +112,7 @@ function BabySitterdetail() {
                     </h2>
                   </>
                 ) : (
-                    <>
+                  <>
                     <img
                       src={not0_12}
                       alt="years1-2 Icon"
@@ -104,7 +126,7 @@ function BabySitterdetail() {
               </div>
             </div>
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
-            <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
+              <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
                 babysitterDetails.sitter[0]["1_2_years"] ? (
                   <>
@@ -118,7 +140,7 @@ function BabySitterdetail() {
                     </h2>
                   </>
                 ) : (
-                    <>
+                  <>
                     <img
                       src={not1_2}
                       alt="years1-2 Icon"
@@ -132,7 +154,7 @@ function BabySitterdetail() {
               </div>
             </div>
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
-            <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
+              <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
                 babysitterDetails.sitter[0]["2_3_years"] ? (
                   <>
@@ -146,7 +168,7 @@ function BabySitterdetail() {
                     </h2>
                   </>
                 ) : (
-                    <>
+                  <>
                     <img
                       src={not2_3}
                       alt="years1-2 Icon"
@@ -160,7 +182,7 @@ function BabySitterdetail() {
               </div>
             </div>
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
-            <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
+              <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
                 babysitterDetails.sitter[0]["3_5_years"] ? (
                   <>
@@ -174,7 +196,7 @@ function BabySitterdetail() {
                     </h2>
                   </>
                 ) : (
-                    <>
+                  <>
                     <img
                       src={not3_5}
                       alt="years1-2 Icon"
@@ -188,7 +210,7 @@ function BabySitterdetail() {
               </div>
             </div>
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
-            <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
+              <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
                 babysitterDetails.sitter[0]["3_5_years"] ? (
                   <>
@@ -198,18 +220,18 @@ function BabySitterdetail() {
                       class="w-20 h-20 inline-block mr-2"
                     />
                     <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
-                     +5 years
+                      +5 years
                     </h2>
                   </>
                 ) : (
-                    <>
+                  <>
                     <img
                       src={not5}
                       alt="years1-2 Icon"
                       class="w-20 h-20 inline-block mr-2"
                     />
                     <h2 class="title-font font-medium text-2xl text-[#C9C9C9]">
-                     +5 years
+                      +5 years
                     </h2>
                   </>
                 )}
@@ -218,6 +240,253 @@ function BabySitterdetail() {
           </div>
         </div>
       </section>
+
+      
+
+<div class="grid grid-cols-4 sm:grid-cols-4 gap-2 bg-[#F9F9E0] mb-20 p-5 pt-10">
+
+  
+        <span class="inline-block rounded-lg p-2">
+           <div class="inline-flex align-middle justify-center items-center select-none text-white">
+           {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["has_car"] ? (
+                  <>
+                    <img
+                      src={car}
+                      alt="car Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                      has Car
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={notcar}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl line-through decoration-2 decoration-black text-[#C9C9C9]">
+                    has Car
+                    </h2>
+                  </>
+                )}
+           </div>
+        </span>
+
+
+
+        <span class="inline-block rounded-lg p-3">
+            <div class="inline-flex align-middle justify-center items-center select-none text-white">
+            {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["non_smoker"] ? (
+                  <>
+                    <img
+                      src={nonsmoker}
+                      alt="months Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                      non smoker
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={smoker}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl line-through decoration-2 decoration-black text-[#C9C9C9]">
+                     non smoker
+                    </h2>
+                  </>
+                )}
+            </div>
+        </span>
+
+
+  
+        <span class="inline-block rounded-lg p-3">
+            <div class="inline-flex align-middle justify-center items-center select-none text-white">
+            {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["cooking"] ? (
+                  <>
+                    <img
+                      src={cooking}
+                      alt="months Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                      Cooking
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={notcooking}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#C9C9C9]">
+                     Cooking
+                    </h2>
+                  </>
+                )}
+            </div>
+        </span>
+
+     
+    
+        <span  class="inline-block rounded-lg p-2">
+           <div class="inline-flex align-middle justify-center items-center select-none text-white">
+           {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["draw"] ? (
+                  <>
+                    <img
+                      src={draw}
+                      alt="months Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                      Draw
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={notdraw}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl line-through decoration-2 decoration-black text-[#C9C9C9]">
+                     Draw
+                    </h2>
+                  </>
+                )}
+           </div>
+        </span>
+      
+  
+  
+        <span  class="inline-block rounded-lg p-3">
+           <div class="inline-flex align-middle justify-center items-center select-none text-white">
+           {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["first_aid"] ? (
+                  <>
+                    <img
+                      src={firstaid}
+                      alt="months Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                      First Aid
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={notfirstaid}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium line-through  decoration-2 decoration-black text-2xl text-[#C9C9C9]">
+                    First Aid
+                    </h2>
+                  </>
+                )}
+           </div>
+        </span>
+        <span  class="inline-block rounded-lg p-3">
+           <div class="inline-flex align-middle justify-center items-center select-none text-white">
+           {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["music"] ? (
+                  <>
+                    <img
+                      src={music}
+                      alt="months Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                     Music
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={notmusic}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium line-through decoration-2 decoration-black text-2xl text-[#C9C9C9]">
+                     Music
+                    </h2>
+                  </>
+                )}
+           </div>
+        </span>
+        <span  class="inline-block rounded-lg p-3">
+           <div class="inline-flex align-middle justify-center items-center select-none text-white">
+           {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["can_drive"] ? (
+                  <>
+                    <img
+                      src={driver}
+                      alt="months Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                     can drive
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={notdrive}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl line-through decoration-2 decoration-black text-[#C9C9C9]">
+                     can drive
+                    </h2>
+                  </>
+                )}
+           </div>
+        </span>
+        <span  class="inline-block rounded-lg p-3">
+           <div class="inline-flex align-middle justify-center items-center select-none text-white">
+           {babysitterDetails.sitter &&
+                babysitterDetails.sitter[0]["reading"] ? (
+                  <>
+                    <img
+                      src={reading}
+                      alt="months Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl text-[#FF90BC]">
+                      Reading Stories
+                    </h2>
+                  </>
+                ) : (
+                  <>
+                    <img
+                      src={notreading}
+                      alt="years1-2 Icon"
+                      class="w-20 h-20 inline-block mr-2"
+                    />
+                    <h2 class="title-font font-medium text-2xl line-through decoration-2 decoration-black text-[#C9C9C9]">
+                    Reading Stories
+                    </h2>
+                  </>
+                )}
+           </div>
+        </span>
+      
+  
+</div>
+
+      
     </>
   );
 }

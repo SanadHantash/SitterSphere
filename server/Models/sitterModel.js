@@ -84,7 +84,7 @@ Sitter.detail = async (sitterID) => {
       users.user_name,
       REPLACE(users.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/BabySitters/', '') AS image
       ,sitters."0_12_months",sitters."1_2_years",sitters."2_3_years",sitters."3_5_years",sitters."+5_years",
-      sitters.drivers_license,sitters.non_smoker,sitters.cooking,sitters.draw,sitters.first_aid
+      sitters.has_car,sitters.non_smoker,sitters.cooking,sitters.draw,sitters.first_aid,sitters.can_drive,sitters.reading,sitters.music
       from sitters inner join users on users.id = sitters.user_id where sitters.id = $1`,[sitterID]
     );
     console.log(result);
