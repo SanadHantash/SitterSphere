@@ -15,7 +15,7 @@ function Rate() {
     if (newRating >= 1 && newRating <= 5) {
       setRating((prevRating) => ({
         ...prevRating,
-        rate: newRating
+        rate: newRating,
       }));
     }
   };
@@ -58,17 +58,27 @@ function Rate() {
               className="star"
               style={{
                 color:
-                  currentRating <= (hover || rating.rate) ? "#FF90BC" : "#e4e5e9",
+                  currentRating <= hover
+                    ? "#FF90BC"
+                    : currentRating <= rating.rate
+                    ? "#FF90BC"
+                    : "#e4e5e9",
               }}
               onMouseEnter={() => setHover(currentRating)}
-              onMouseLeave={() => setHover(null)}
+              onMouseLeave={() => setHover(rating.rate)}
+              onClick={() => handleRatingChange(currentRating)} // Added onClick handler
             >
               &#9733;
             </span>
           </label>
         );
       })}
-      <button className="w-1/12 mb-4 block mx-auto rounded-full bg-[#FF90BC] hover:shadow-lg font-semibold text-white px-6 py-2" onClick={addRate}>Submit Rating</button> {/* Add a submit button outside the loop */}
+      <button
+        className="w-1/12 mb-4 block mx-auto rounded-full bg-[#FF90BC] hover:shadow-lg font-semibold text-white px-6 py-2"
+        onClick={addRate}
+      >
+        Submit Rating
+      </button>
     </>
   );
 }
