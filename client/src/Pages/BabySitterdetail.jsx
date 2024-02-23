@@ -29,6 +29,7 @@ import notdrive from "../Assets/drive(not).svg";
 import notreading from "../Assets/reading(not).svg";
 import smoker from "../Assets/nonsmoker(not).svg";
 import notfirstaid from "../Assets/firstaid(not).svg";
+import Rate from "../Components/Rate";
 
 
 
@@ -486,7 +487,7 @@ function BabySitterdetail() {
   
 </div>
 
-      
+      <Rate />
     </>
   );
 }

@@ -1,6 +1,6 @@
 const db = require("../config");
 const jwt = require("jsonwebtoken");
-const { admin, storage } = require("../firebase");
+
 const User = {};
 
 User.checkUserExistence = async (email, user_name, phonenumber) => {
@@ -34,14 +34,23 @@ User.register = async (
   user_name,
   email,
   hashPassword,
-  phonenumber,
-  imageUrl 
+  phonenumber
 ) => {
   try {
     const result = await db.query(
-      "INSERT INTO users(first_name,last_name,user_name, email, password, phonenumber,image,role_id) VALUES($1, $2, $3, $4, $5, $6,$7,2) RETURNING *",
-      [first_name, last_name, user_name, email, hashPassword, phonenumber, imageUrl]
+      "INSERT INTO users(first_name,last_name,user_name, email, password, phonenumber,role_id) VALUES($1, $2, $3, $4, $5, $6,2) RETURNING *",
+      [first_name, last_name, user_name, email, hashPassword, phonenumber]
     );
+
+    // Fetch role information based on role_id
+    const userRole = await db.query(
+      "SELECT role FROM roles WHERE id = $1",
+      [result.rows[0].role_id]
+    );
+
+    // Include role information in the user object
+    result.rows[0].role = userRole.rows[0].role;
+
     return result.rows[0];
   } catch (err) {
     throw err;

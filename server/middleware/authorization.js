@@ -3,11 +3,11 @@ require('dotenv').config();
 
 async function authorize(req, res, next){
     try{
-        const token = req.cookies.token;
+        //const token = req.cookies.token;
         // console.log(req);
-        // const tokenIndex = req.rawHeaders.indexOf('Authorization');
-        // console.log(tokenIndex)
-        //     const token = req.rawHeaders[tokenIndex + 1];
+        const tokenIndex = req.rawHeaders.indexOf('Authorization');
+        console.log(tokenIndex)
+            const token = req.rawHeaders[tokenIndex + 1];
             // Now `token` contains the value of the Authorization header
             // Use it as needed in your code
          

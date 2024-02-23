@@ -10,8 +10,9 @@ const port = 8080;
 const dashboardRoute = require("./Routes/dashboardRoute");
 const userRoute = require("./Routes/userRoutes");
 const sitterRoute = require("./Routes/sitterRoute");
-const homeRoute = require ("./Routes/homeRoute")
-const familyRoute = require("./Routes/familyRoute")
+const homeRoute = require ("./Routes/homeRoute");
+const familyRoute = require("./Routes/familyRoute");
+const reactionRoute = require("./Routes/reactionRoute");
 app.use(session({ secret: "cats", resave: true, saveUninitialized: true }));
 
 app.use(express.json());
@@ -28,6 +29,7 @@ app.use(userRoute);
 app.use(sitterRoute);
 app.use(homeRoute);
 app.use(familyRoute);
+app.use(reactionRoute)
 
 app.listen(port, () => {
   console.log(`server runnning in port ${port}`);
