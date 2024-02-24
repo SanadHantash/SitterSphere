@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 import { useCookies } from "react-cookie";
-
+import Swal from "sweetalert2";
+import "sweetalert2/dist/sweetalert2.min.css";
 function Rate() {
   const [cookies] = useCookies(["token"]);
   const token = cookies.Token;
@@ -22,18 +23,23 @@ function Rate() {
 
   const addRate = async () => {
     try {
-      console.log("Rating:", rating.rate); // Log the current rating value
+      console.log("Rating:", rating.rate);
       axios.defaults.headers.common["Authorization"] = token;
       const response = await axios.post(
         `http://localhost:8080/reaction/addrate/${id}`,
         {
-          rate: rating.rate, // Ensure you send the rate as a number
+          rate: rating.rate, 
         }
       );
 
-      console.log("Response:", response.data); // Log the response from the server
+      console.log("Response:", response.data); 
 
-      // Reset rating after submission
+      Swal.fire({
+        icon: "success",
+        title: "your Rate added successfully!",
+        showConfirmButton: false,
+        timer: 1500,
+      });
       setRating({ rate: 0 });
     } catch (error) {
       console.error("Error adding rate:", error);
@@ -42,6 +48,9 @@ function Rate() {
 
   return (
     <>
+      <h1 className="text-3xl  text-[#FF90BC] text-center font-bold mt-20">
+        add your rate
+      </h1>
       {[...Array(totalStars)].map((star, index) => {
         const currentRating = index + 1;
 
@@ -66,7 +75,7 @@ function Rate() {
               }}
               onMouseEnter={() => setHover(currentRating)}
               onMouseLeave={() => setHover(rating.rate)}
-              onClick={() => handleRatingChange(currentRating)} // Added onClick handler
+              onClick={() => handleRatingChange(currentRating)}
             >
               &#9733;
             </span>

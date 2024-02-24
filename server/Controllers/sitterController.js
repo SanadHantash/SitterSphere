@@ -42,11 +42,29 @@ const detail = async (req,res)=>{
 
 }
 
+const applysitter = async(req,res)=>{
+    try{
+        const { role } = req.user;
 
+        if (role !== 'user') {
+          return res.status(403).json({ success: false, message: 'Access denied. Only families are allowed.' });
+        }
+            const sitterID = req.params.id;
+            const userID= req.user.userId; 
+            const{childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site}=req.body;
+            await Sitter.applysitter(sitterID,userID,childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site) ;
+            res.status(201).json({ success: true, message: "Your application added successfully" });
+
+    } catch (err) {
+        console.error("Error adding details:", err);
+        res.status(500).json({ success: false, error: "Your application added failed" });
+    }
+}
 
 module.exports = {
     addmydetails,
     allsitters,
-    detail
+    detail,
+    applysitter
   };
   

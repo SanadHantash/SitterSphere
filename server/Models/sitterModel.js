@@ -106,4 +106,14 @@ Sitter.detail = async (sitterID) => {
   }
 };
 
+
+Sitter.applysitter = async(sitterID,userID,childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site)=>{
+  try{
+      const result = db.query(`insert into sitter_applications( sitter_id,user_id,childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site)VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9,$10)`,[sitterID,userID,childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site])
+      return result
+  }catch (err) {
+    throw err;
+  }
+}
+
 module.exports = Sitter;

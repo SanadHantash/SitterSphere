@@ -42,13 +42,13 @@ User.register = async (
       [first_name, last_name, user_name, email, hashPassword, phonenumber]
     );
 
-    // Fetch role information based on role_id
+  
     const userRole = await db.query(
       "SELECT role FROM roles WHERE id = $1",
       [result.rows[0].role_id]
     );
 
-    // Include role information in the user object
+    
     result.rows[0].role = userRole.rows[0].role;
 
     return result.rows[0];
