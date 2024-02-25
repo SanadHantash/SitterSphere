@@ -77,8 +77,30 @@ function SitterApplyModal({ addpplication, closeModal, addedApplication }) {
         showConfirmButton: false,
         timer: 1500,
       });
-    } catch (error) {
-      console.error("Error creating application:", error); 
+    }catch (error) {
+      if (error.response) {
+        const errorMessage = error.response.data.error;
+  
+        if (errorMessage === "you are already applied for this babysitter") {
+          Swal.fire({
+            icon: "info",
+            title: "Application Info",
+            text: errorMessage,
+          });
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Application Failed",
+            text: `Server error: ${errorMessage}`,
+          });
+        }
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Application Failed",
+          text: "An error occurred during enrollment. Please try again later.",
+        });
+      }
     }
   };
   

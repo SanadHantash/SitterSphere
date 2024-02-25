@@ -116,4 +116,14 @@ Sitter.applysitter = async(sitterID,userID,childern_count,months_0_12,years_1_2,
   }
 }
 
+Sitter.isapplied = async (userID, sitterID) => {
+  try {
+    const checkAppliationQuery = 'SELECT * FROM sitter_applications WHERE user_id = $1 AND sitter_id = $2';
+    const checkAppliationResult = await db.query(checkAppliationQuery, [userID, sitterID]);
+    return checkAppliationResult.rows.length > 0;
+  } catch (err) {
+    throw err;
+  }
+};
+
 module.exports = Sitter;

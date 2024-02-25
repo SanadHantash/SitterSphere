@@ -28,11 +28,11 @@ const addrequest = async (req, res) => {
   
         res
           .status(201)
-          .json({ success: true, message: "Course added successfully" });
+          .json({ success: true, message: "Request added successfully" });
       });
     } catch (err) {
       console.error(err);
-      res.status(400).json({ success: false, error: "Course added failed" });
+      res.status(400).json({ success: false, error: "Request added failed" });
     }
   };
   
@@ -83,11 +83,50 @@ const allrequests = async (req, res, next) => {
   }
 };
 
+const detail = async (req,res)=>{
+  try{
+      const requestID = req.params.id;
+      const request = await Family.detail(requestID);
+      res.status(200).json({ success: true, request });
+  }
+  catch (err) {
+      console.error("Error adding details:", err);
+      res.status(500).json({ success: false, error: "request detail get failed" });
+  }
 
+}
+
+
+const applyrequest = async (req, res) => {
+  try {
+    const { role } = req.user;
+
+    if (role !== 'sitter') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only families are allowed.' });
+    }
+
+    const requestID = req.params.id;
+    const userID = req.user.userId;
+
+    const isApplied = await Family.isapplied(userID, requestID);
+    
+    if (isApplied) {
+      return res.status(400).json({ success: false, error: "you are already applied for this request" });
+    }
+
+    await Family.applyrequest(requestID, userID);
+    res.status(201).json({ success: true, message: "your apply added successfully" });
+  } catch (err) {
+    console.error(err);
+    res.status(400).json({ success: false, error: "your apply added failed" });
+  }
+}
 
 module.exports = {
     addrequest,
     allrequests,
-    mydetails
+    mydetails,
+    detail,
+    applyrequest
   };
   

@@ -8,7 +8,10 @@ import cooking from "../Assets/cooking.svg";
 import firstaid from "../Assets/firstaid.svg";
 import nonsmoker from "../Assets/nonsmoker.svg";
 import draw from "../Assets/draw.svg";
-import driver from "../Assets/car.svg";
+import car from "../Assets/car.svg";
+import driver from "../Assets/drive.svg";
+import music from "../Assets/music.svg";
+import reading from "../Assets/reading.svg";
 
 function Recentrequests() {
   const [requests, setRequests] = useState([]);
@@ -139,7 +142,7 @@ function Recentrequests() {
                         />
                       )}
 
-                      {request.drivers_license && (
+                      {request.can_drive && (
                         <img
                           src={driver}
                           alt="driver license Icon"
@@ -161,10 +164,31 @@ function Recentrequests() {
                           className="w-8 h-8 inline-block mr-2"
                         />
                       )}
+                      {request.has_car && (
+                        <img
+                          src={car}
+                          alt="car Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+                      {request.reading && (
+                        <img
+                          src={reading}
+                          alt="reading Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
+                      {request.music && (
+                        <img
+                          src={music}
+                          alt="music Icon"
+                          className="w-8 h-8 inline-block mr-2"
+                        />
+                      )}
                     </div>
 
                     <Link
-                      to={`/requestsDetail/${request.id}`}
+                      to={`/requestDetail/${request.id}`}
                       className="mt-8 inline-block rounded border border-[#FF90BC] bg-[#FF90BC] px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text[#FF90BC] focus:outline-none focus:ring active:text-[#FF90BC]"
                     >
                       Learn More

@@ -10,6 +10,7 @@ import Footer from './Components/Footer';
 import BabySitters from './Pages/BabySitters';
 import Requests from './Pages/Requests';
 import BabySitterdetail from './Pages/BabySitterdetail';
+import RequestDetail from './Pages/RequestDetail';
 //import { useAuth } from "./Context/AuthContext";
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
           <Route path="/sitters" element={<BabySitters />} />
           <Route path="/requests" element={<Requests />} />
           <Route path="/babysitterDetails/:id" element={<BabySitterdetail />}/>
+          <Route path="/requestDetail/:id" element={<RequestDetail />}/>
           </Routes>
           <Footer />
         </BrowserRouter>
