@@ -53,7 +53,7 @@ function Footer() {
   };
 
   return (
-    <footer class=" dark:bg-gray-900 bg-[#FFC0D9]">
+    <footer class=" dark:bg-gray-900 bg-[#FF90BC]">
       <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0 flex flex-row items-center">
@@ -108,15 +108,15 @@ function Footer() {
                   </Link>
                 </li>
                 <li class="mb-0">
-                  <Link to="/Contact" class="hover:text-indigo-900">
+                  <Link to="/Contactus" class="hover:text-indigo-900">
                     Contact
                   </Link>
                 </li>
-                <li>
+                {/* <li>
                   <Link to="/faq" class="hover:text-indigo-900">
                     Faq
                   </Link>
-                </li>
+                </li> */}
               </ul>
             </div>
             <div>

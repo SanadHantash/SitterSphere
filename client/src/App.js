@@ -11,6 +11,12 @@ import BabySitters from './Pages/BabySitters';
 import Requests from './Pages/Requests';
 import BabySitterdetail from './Pages/BabySitterdetail';
 import RequestDetail from './Pages/RequestDetail';
+import Contactus from './Pages/Contactus';
+import Subscribe from './Pages/Subscribe';
+import Subscription from './Pages/Subscription';
+import PremiumSubscribe from './Components/CheckoutForm';
+import Success from './Pages/Success';
+import AboutUs from './Pages/AboutUs';
 //import { useAuth } from "./Context/AuthContext";
 
 function App() {
@@ -28,6 +34,12 @@ function App() {
           <Route path="/requests" element={<Requests />} />
           <Route path="/babysitterDetails/:id" element={<BabySitterdetail />}/>
           <Route path="/requestDetail/:id" element={<RequestDetail />}/>
+          <Route path="/contactus" element={<Contactus />}/>
+          <Route path="/about" element={<AboutUs />} />
+          <Route path="/pricing" element={<Subscribe />} />
+            <Route path="/subscribe" element={<Subscription />} />
+            <Route path="/premium-subscribe" element={<PremiumSubscribe />} />
+            <Route path="/successs" element={<Success />} />
           </Routes>
           <Footer />
         </BrowserRouter>

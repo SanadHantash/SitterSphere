@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import background from "../Assets/Registration Page.png";
+import background from "../Assets/back.png";
 import FormHeader from "../Components/FormHeader";
 
 import { useAuth } from "../Context/AuthContext";

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import background from "../Assets/Registration Page.png";
+import background from "../Assets/back.png";
 import FormHeader from "../Components/FormHeader";
 
 import { useCookies } from "react-cookie";

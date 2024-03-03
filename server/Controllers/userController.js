@@ -192,7 +192,7 @@ const createCheckoutSession = async (req, res) => {
 
 const updateuserrole = async (req, res) => {
   try {
-    console.log("woooooooooow");
+   
     const userID = req.user.userId;
     await User.checkconfirm(userID);
     res.status(200).json({ success: true, message: "user updated success" });
