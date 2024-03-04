@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import logo2 from "../Assets/logo2.png";
+import logo from "../Assets/logo3.png";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useAuth } from "../Context/AuthContext";
@@ -53,15 +53,15 @@ function Footer() {
   };
 
   return (
-    <footer class=" dark:bg-gray-900 bg-[#FF90BC]">
+    <footer class=" dark:bg-gray-900 bg-[#FFC0D9]">
       <div class="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           <div className="mb-6 md:mb-0 flex flex-row items-center">
             <a href="/" className="flex">
               <img
-                src={logo2}
+                src={logo}
                 className="h-18 w-48 object-contain"
-                alt="WiseAssist Logo"
+                alt="SitterSphere Logo"
               />
             </a>
             <div className="ml-6">

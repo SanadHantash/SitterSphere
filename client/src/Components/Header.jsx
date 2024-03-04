@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import logo2 from "../Assets/logo2.png";
+import logo from "../Assets/logo3.png";
 import uk from "../Assets/uk.png";
 import ar from "../Assets/ar.png";
 import { Link } from "react-router-dom";
@@ -26,13 +26,13 @@ function Header() {
   };
   return (
     <>
-      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 py-2.5 dark:bg-gray-900 w-full">
+      <nav className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-200 py-1 dark:bg-gray-900 w-full">
         <div class="flex justify-between px-4 mx-auto flex-wrap lg:flex-nowrap">
           <a href="/" class="flex items-center">
             <img
-              src={logo2}
-              class="h-[3rem] w-[9rem]  "
-              alt="WiseAssist Logo"
+              src={logo}
+              className="h-auto w-24"
+              alt="SitterSphere Logo"
             />
           </a>
           <div class="flex items-center lg:order-2">
