@@ -46,7 +46,7 @@ const applysitter = async(req,res)=>{
     try{
         const { role } = req.user;
 
-        if (role !== 'user') {
+        if (role !== 'unsubscriber' || role !== 'subscriber') {
           return res.status(403).json({ success: false, message: 'Access denied. Only families are allowed.' });
         }
             const sitterID = req.params.id;

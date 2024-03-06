@@ -122,7 +122,133 @@ const uploadImageToFirebase = async (imageBuffer) => {
     return imageUrl;
   };
 
+  
+const allusers = async (req, res) => {
+  try {
+    // const {role} = req.user;
+    // if (role !== 'admin') {
+    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    // }
 
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 5;
+    //const roleFilter = req.query.role || "";
+    const users = await Dashboard.allusers(page, pageSize);
+    const totalCount = await Dashboard.countusers();
+    const totalPages = Math.ceil(totalCount / pageSize);
+    console.log(totalCount, totalPages);
+    return res
+      .status(200)
+      .json({ succes: true, users, totalCount, totalPages });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+
+const login = async (req, res) => {
+  const { email, password } = req.body;
+
+  try {
+    const user = await Dashboard.login(email);
+
+    if (!user || !user.password) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Email not found or user is denied to access." });
+    }
+
+    const isPasswordMatch = await bcrypt.compare(password, user.password);
+
+    if (!isPasswordMatch) {
+      return res
+        .status(401)
+        .json({ success: false, message: "Invalid email or password" });
+    }
+
+    const { id, role } = user;
+
+    if (role !== "admin") {
+      return res
+        .status(401)
+        .json({
+          success: false,
+          message: "Access denied. Only admins are allowed.",
+        });
+    }
+
+    const token = jwt.sign(
+      { userId: id, email, role },
+      process.env.SECRET_KEY,
+      { expiresIn: "4h" }
+    );
+    res.cookie("token", token, { httpOnly: true });
+    res
+      .status(200)
+      .json({ success: true, message: "Successfully signed in", token });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+
+const countusers = async (req, res) => {
+  try {
+    // const {role} = req.user;
+    // if (role !== 'admin') {
+    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    // }
+    const count = await Dashboard.countusers();
+    return res.status(200).json({ succes: true, count });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+const allsitters = async (req, res) => {
+  try {
+    // const {role} = req.user;
+    // if (role !== 'admin') {
+    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    // }
+
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 5;
+    //const roleFilter = req.query.role || "";
+    const sitters = await Dashboard.allsitters(page, pageSize);
+    const totalCount = await Dashboard.countsitters();
+    const totalPages = Math.ceil(totalCount / pageSize);
+    console.log(totalCount, totalPages);
+    return res
+      .status(200)
+      .json({ succes: true, sitters, totalCount, totalPages });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+const countsitters = async (req, res) => {
+  try {
+    // const {role} = req.user;
+    // if (role !== 'admin') {
+    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    // }
+    const count = await Dashboard.countsitters();
+    return res.status(200).json({ succes: true, count });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
 module.exports = {
-    addbabysitter
+    addbabysitter,
+    allusers,
+    login,
+    countusers,
+    allsitters,
+    countsitters
 }
