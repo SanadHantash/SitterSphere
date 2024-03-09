@@ -1,14 +1,12 @@
 import React, { useState } from "react";
 import logo2 from "../Assets/logo3.png";
-import Stats from "./Stats";
 import Users from "./Users";
-import Workshops from "./Workshops";
-import Techtips from "./Techtips";
 import Tables from "./Tables";
 import { useAuth } from "../Context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import Faq from "./Faq";
+
 import SittersTable from "./SittersTable";
+import FamiliesRequests from "./FamiliesRequests";
 
 function SidebarDash() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -81,36 +79,18 @@ function SidebarDash() {
                 <button
                   className={`text-indigo-950 hover:bg-[#FF90BC] hover:text-white group flex items-center px-5 py-2   w-full text-sm font-medium rounded-md 
                   ${
-                    activeTab === "workshops"
+                    activeTab === "requests"
                       ? "bg-[#FF90BC] text-white"
                       : "#d5c5df"
                   }`}
-                  onClick={() => setActiveTab("workshops")}
+                  onClick={() => setActiveTab("requests")}
                 >
-                  Workshops
+                  Families Requests
                 </button>
 
-                <button
-                  className={`text-indigo-950 hover:bg-[#FF90BC] hover:text-white group flex items-center px-5 py-2   w-full text-sm font-medium rounded-md 
-                  ${
-                    activeTab === "techtips"
-                      ? "bg-[#FF90BC] text-white"
-                      : "#d5c5df"
-                  }`}
-                  onClick={() => setActiveTab("techtips")}
-                >
-                  TechTips
-                </button>
+            
 
-                <button   className={`text-indigo-950 hover:bg-[#FF90BC] hover:text-white group flex items-center px-5 py-2   w-full text-sm font-medium rounded-md 
-                  ${
-                    activeTab === "faq"
-                      ? "bg-[#FF90BC] text-white"
-                      : "#d5c5df"
-                  }`}
-                  onClick={() => setActiveTab("faq")}>
-                  Faq
-                </button>
+            
                 <button
                   className="text-indigo-950 hover:bg-[#FF90BC] hover:text-white group flex items-center px-5 py-2  w-full text-sm font-medium rounded-md"
                   onClick={() => {
@@ -166,18 +146,10 @@ function SidebarDash() {
                 <h1 class="text-2xl font-semibold text-gray-900">Dashboard</h1>
               </div>
               <div class="max-w-7xl mx-auto px-4 sm:px-6 md:px-8">
-                {/* {activeTab === "userProfile" && <PublecProfile />} */}
                 {activeTab === "dashboard" && <Tables />}
                 {activeTab === "users" && <Users />}
                 {activeTab === "sitters" && <SittersTable />}
-                {activeTab === "workshops" && <Workshops />}
-                {activeTab === "techtips" && <Techtips />}
-                {activeTab === "faq" && <Faq />}
-                {/* <Stats />
-                <Users />
-                <CoursesTable />
-                <Workshops />
-                <Techtips /> */}
+                {activeTab === "requests" && <FamiliesRequests />}
               </div>
             </div>
           </main>

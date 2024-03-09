@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import UserModal from "../Modals/UserModal";
-import deletee from "../Assets/delete.png";
-import edit from "../Assets/edit.png";
 import Swal from "sweetalert2";
 import { useAuth } from "../Context/AuthContext";
 
@@ -192,6 +189,12 @@ function Users() {
                     </th>
                     <th
                       scope="col"
+                      class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                    >
+                      Role
+                    </th>
+                    <th
+                      scope="col"
                       class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
                     >
                       Action
@@ -222,6 +225,9 @@ function Users() {
                       <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
                         {user.phonenumber}
                       </td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-800 dark:text-gray-200">
+                        {user.role}
+                      </td>
                       <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
                         <button
                           type="button"
@@ -239,13 +245,6 @@ function Users() {
                   ))}
                 </tbody>
               </table>
-              {showModal && (
-                <UserModal
-                  user={selectedUser}
-                  closeModal={closeModal}
-                  updateUser={updateUser}
-                />
-              )}
             </div>
             <div class="py-1 px-4">
               <nav class="flex items-center space-x-1">

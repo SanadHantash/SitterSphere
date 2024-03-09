@@ -1,11 +1,8 @@
 import React from "react";
 import Stats from "./Stats";
 import Users from "./Users";
-
-import Workshops from "./Workshops";
-import Techtips from "./Techtips";
-import Faq from "./Faq";
 import SittersTable from "./SittersTable";
+import FamiliesRequests from "./FamiliesRequests";
 
 function Tables() {
   return (
@@ -13,9 +10,9 @@ function Tables() {
       <Stats />
       <Users />
       <SittersTable />
-      <Workshops />
-      <Techtips />
-      <Faq />
+      <FamiliesRequests />
+      {/* <Techtips />
+      <Faq /> */}
     </>
   );
 }

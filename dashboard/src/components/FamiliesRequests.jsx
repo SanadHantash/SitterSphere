@@ -1,64 +1,41 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import deletee from "../Assets/delete.png";
-import edit from "../Assets/edit.png";
-import CreateWorkshop from "../Modals/CreateWorkshop";
-import WorkshopModal from "../Modals/WorkshopModal";
-import attendance from "../Assets/people.png";
-import AttendancesModal from "../Modals/AttendancesModal";
 import Swal from "sweetalert2";
 import { useAuth } from "../Context/AuthContext";
 
 import { useCookies } from "react-cookie";
 
-function Workshops() {
-  // const [cookies] = useCookies(["token"]);
-  const [Workshops, setWorkshops] = useState([]);
+function FamiliesRequests() {
+  const [requests, setRequests] = useState([]);
 
-  const [createWorkshop, setCreatedWorkshop] = useState({
-    title: "",
-    detail: "",
-    description: "",
-    trainer: "",
-    category_id: 0,
-    is_paid: false,
-    image: null,
-    site: "",
-    start_time: "",
-    end_time: "",
-  });
-
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [itemsPerPage] = useState(3);
-  //   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [selectedWorkshop, setSelectedWorkshop] = useState(null);
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showAttendanceModal, setShowAttendanceModal] = useState(false);
+  const [selectedRequest, setSelectedRequest] = useState(null);
+
   const { headers } = useAuth();
   const [cookies] = useCookies(["token"]);
   const token = cookies.Token;
-  const [page, setPage] = useState(1); // Current page
-  const [limit, setLimit] = useState(5); // Users per page
+  const [page, setPage] = useState(1);
+  const [limit, setLimit] = useState(5);
 
   useEffect(() => {
-    fetchWorkshop(); // Fetch users when component mounts or when page or limit changes
+    fetchRequests();
   }, [page, limit]);
 
-  const fetchWorkshop = async () => {
-    try { axios.defaults.headers.common["Authorization"] = token;
+  const fetchRequests = async () => {
+    try {
+      axios.defaults.headers.common["Authorization"] = token;
 
       const response = await axios.get(
-        `http://localhost:8080/dashboard/allworkshops?page=${page}&limit=${limit}`
+        `http://localhost:8080/dashboard/allfamiliesrequests?page=${page}&limit=${limit}`
       );
-      console.log(response.data.course);
+      console.log(response.data.requests);
 
-      setWorkshops(response.data.course);
+      setRequests(response.data.requests);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
   };
-
 
   const showConfirmationDialog = (workshopId) => {
     Swal.fire({
@@ -75,56 +52,40 @@ function Workshops() {
       }
     });
   };
-  const deleteWorkshop = async (workshopId) => {
+  const deleteWorkshop = async (requestId) => {
     try {
-      if (!workshopId) {
-        console.error("Invalid workshop ID");
+      if (!requestId) {
+        console.error("Invalid request ID");
         return;
       }
       await axios.put(
-        `http://localhost:8080/dashboard/deletecourse/${workshopId}`
+        `http://localhost:8080/dashboard/deleterequest/${requestId}`
       );
 
-      setWorkshops(Workshops.filter((course) => course.id !== workshopId));
-      console.log(`Workshop ${workshopId} deleted successfully.`);
+      setRequests(requests.filter((request) => request.id !== requestId));
+      console.log(`Request ${requestId} deleted successfully.`);
     } catch (error) {
-      console.error(`Error deleting workshop ${workshopId}:`, error);
+      console.error(`Error deleting workshop ${requestId}:`, error);
     }
   };
 
-  const openModal = (workshop) => {
-    setSelectedWorkshop(workshop);
+  const openModal = (request) => {
+    setSelectedRequest(request);
     setShowModal(true);
-    console.log("Modal is opened"); // Log to check if this function runs
   };
 
-  // Function to close modal
   const closeModal = () => {
     setShowModal(false);
-    setSelectedWorkshop(null);
+    setSelectedRequest(null);
   };
 
-  const updateWorkshop = (updatedWorkshop) => {
-    const updatedWorkshops = Workshops.map((workshop) =>
-      workshop.id === updatedWorkshop.id ? updatedWorkshop : workshop
-    );
-
-    setWorkshops(updatedWorkshops);
-  };
-
-  const attendanceCourse = (selectedCourse) => {
-    setSelectedWorkshop(selectedCourse);
-    setShowAttendanceModal(
-      (prevShowAttendanceModal) => !prevShowAttendanceModal
-    );
-  };
   return (
     <>
       {" "}
       <div class="flex flex-col mt-5">
         <hr />
         <h1 className=" mt-3 text-2xl font-semibold text-indigo-950  ">
-          Workshops Table
+          Families Requests Table
         </h1>
 
         <div class="-m-1.5 overflow-x-auto">
@@ -161,12 +122,6 @@ function Workshops() {
                       </svg>
                     </div>
                   </div>
-                  <button
-                    onClick={() => setShowCreateModal(true)}
-                    className="bg-indigo-950 h-10 w-40 text-white  rounded-md ml-2 hover:bg-indigo-900"
-                  >
-                    Create WorkShop
-                  </button>
                 </div>
               </div>
               <div class=" overflow-x-auto">
@@ -190,49 +145,20 @@ function Workshops() {
                         >
                           Description
                         </th>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-                        >
-                          Trainer
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-                        >
-                          Category
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-                        >
-                          Type
-                        </th>
+
                         <th
                           scope="col"
                           class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
                         >
                           Image
                         </th>
+                        <th
+                          scope="col"
+                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
+                        >
+                          Date
+                        </th>
 
-                        {/* <th
-                          scope="col"
-                          class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
-                        >
-                          Rate
-                        </th> */}
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-                        >
-                          Start_Time
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-                        >
-                          End_Time
-                        </th>
                         <th
                           scope="col"
                           class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase"
@@ -241,73 +167,43 @@ function Workshops() {
                         </th>
                       </tr>
                     </thead>
-                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
-                      {Workshops &&
-                        Workshops.map((workshop, index) => (
+                    <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
+                      {requests &&
+                        requests.map((request, index) => (
                           <tr
                             key={index}
                             className={
-                              index % 2 !== 0 ? "bg-white" : "bg-[#d5c5df]"
+                              index % 2 !== 0 ? "bg-white" : "bg-[#FFC0D9]"
                             }
                           >
-                            <td class="py-3 ps-4">
-                              <div class="flex items-center h-5"></div>
+                            <td className="py-3 ps-4">
+                              <div className="flex items-center h-5"></div>
                             </td>
-                            <td class="px-6 py-4  text-sm font-medium text-gray-800 dark:text-gray-200">
-                              {workshop.title}
+                            <td className="px-6 py-4 text-sm font-medium text-gray-800 dark:text-gray-200">
+                              {request.title}
+                            </td>
+                            <td className="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                              {request.description}
                             </td>
 
-                            <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.description}
-                            </td>
-                            <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.trainer}
-                            </td>
-                            <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.category}
-                            </td>
-                            <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.is_paid}
-                            </td>
-                            <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.image && (
+                            <td className="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                              {request.image && (
                                 <img
-                                  src={workshop.image}
+                                  src={request.image}
                                   className="h-10 w-10"
                                   alt="course_image"
                                 />
                               )}
                             </td>
-                            {/* <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.rate}
-                            </td> */}
-                            <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.start_time}
+                            <td className="px-6 py-4 text-sm text-gray-800 dark:text-gray-200">
+                              {request.start_time}
                             </td>
-                            <td class="px-6 py-4  text-sm text-gray-800 dark:text-gray-200">
-                              {workshop.end_time}
-                            </td>
-                            <td class="px-6 py-4 whitespace-nowrap text-end text-sm font-medium">
+                            <td class="px-6 py-4 w-1/8 h-20 text-end whitespace-nowrap  text-sm font-medium ">
                               <button
                                 type="button"
-                                onClick={() => attendanceCourse(workshop)}
-                              >
-                                <img
-                                  className="h-6 w-6"
-                                  src={attendance}
-                                  alt=""
-                                />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => openModal(workshop)}
-                                class="inline-flex mr-2 items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
-                              >
-                                <img className="  h-6 w-6 " src={edit} alt="" />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => showConfirmationDialog(workshop.id)}
+                                onClick={() =>
+                                  showConfirmationDialog(request.id)
+                                }
                                 className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                               >
                                 <img className="h-6 w-6" src={deletee} alt="" />
@@ -318,28 +214,6 @@ function Workshops() {
                     </tbody>
                   </table>
                 </div>
-                {showModal && (
-                  <WorkshopModal
-                    workshop={selectedWorkshop}
-                    closeModal={closeModal}
-                    updateWorkshop={updateWorkshop}
-                  />
-                )}
-                {showCreateModal && (
-                  <CreateWorkshop
-                    addWorkshop={createWorkshop}
-                    closeModal={() => setShowCreateModal(false)}
-                    addedWorkshop={setCreatedWorkshop}
-                  />
-                )}
-
-                {showAttendanceModal && (
-                  <AttendancesModal
-                    course={selectedWorkshop}
-                    closeModal={() => setShowAttendanceModal(false)}
-                    getAttendances={attendanceCourse}
-                  />
-                )}
               </div>
               <div class="py-1 px-4">
                 <nav class="flex items-center space-x-1">
@@ -355,14 +229,14 @@ function Workshops() {
 
                   <div className="flex items-center space-x-2">
                     {Array.from(
-                      { length: Math.ceil(Workshops.length / limit) },
+                      { length: Math.ceil(requests.length / limit) },
                       (_, index) => (
                         <button
                           key={index}
                           onClick={() => setPage(index + 1)}
                           className={`p-2.5 inline-flex items-center rounded-full text-sm font-medium ${
                             page === index + 1
-                              ? " text-indigo-950"
+                              ? "bg-[#FF90BC] text-white"
                               : "text-gray-800 hover:bg-gray-100 dark:text-white dark:hover:bg-white/10"
                           }`}
                         >
@@ -375,7 +249,7 @@ function Workshops() {
                   <button
                     type="button"
                     onClick={() => setPage(page + 1)}
-                    disabled={Workshops.length < limit}
+                    disabled={requests.length < limit}
                     className="p-2.5 inline-flex items-center gap-x-2 text-sm rounded-full text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-white/10 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                   >
                     <span className="sr-only">Next</span>
@@ -391,4 +265,4 @@ function Workshops() {
   );
 }
 
-export default Workshops;
+export default FamiliesRequests;

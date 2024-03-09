@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import deletee from "../Assets/delete.png";
-import detail from "../Assets/detail.png";
-import edit from "../Assets/edit.png";
-import attendance from "../Assets/people.png";
-import UpdateCourseModal from "../Modals/CourseModal";
-import CreateCourse from "../Modals/CreateCourse";
-import CourseModal from "../Modals/CourseModal";
-import AttendancesModal from "../Modals/AttendancesModal";
+import CreateSitter from "../Modals/CreateSitter";
 import { Link } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 
@@ -18,33 +12,25 @@ function SittersTable() {
   const [cookies] = useCookies(["token"]);
   const [sitters, setSitters] = useState([]);
 
-
-  // const [createCourse, setCreatedCourse] = useState({
-  //   title: "",
-  //   detail: "",
-  //   description: "",
-  //   trainer: "",
-  //   category_id: 0,
-  //   is_paid: false,
-  //   image: null,
-  //   site: "",
-  //   start_time: "",
-  //   end_time: "",
-  // });
+  const [createSitter, setCreatedCourse] = useState({
+    first_name: "",
+    last_name: "",
+    user_name: "",
+    email: "",
+    phonenumber: "",
+    image: null,
+  });
 
   const [searchTerm, setSearchTerm] = useState("");
   const [showModal, setShowModal] = useState(false);
-  const [selectedCourse, setSelectedCourse] = useState(null);
+  const [selectedSitter, setSelectedSitter] = useState(null);
   const [showCreateModal, setShowCreateModal] = useState(false);
-  const [showAttendanceModal, setShowAttendanceModal] = useState(false);
+
 
   const token = cookies.Token;
   const { headers } = useAuth();
   const [page, setPage] = useState(1); // Current page
   const [limit, setLimit] = useState(5); // Users per page
-  
-
-  
 
   useEffect(() => {
     fetchSitters();
@@ -64,66 +50,51 @@ function SittersTable() {
     }
   };
 
-  // const showConfirmationDialog = (faqId) => {
-  //   Swal.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, proceed!",
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       deleteCourse(faqId);
-  //     }
-  //   });
-  // };
+  const showConfirmationDialog = (faqId) => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, proceed!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        deleteSitter(faqId);
+      }
+    });
+  };
 
-  // const deleteCourse = async (courseId) => {
-  //   try {
-  //     axios.defaults.headers.common["Authorization"] = token;
-  //     await axios.put(
-  //       `http://localhost:8080/dashboard/deletecourse/${courseId}`
-  //     );
-  //     // Update the courses state after deletion
-  //     setCourses(courses.filter((course) => course.id !== courseId));
-  //     console.log(`Course ${courseId} deleted successfully.`);
-  //   } catch (error) {
-  //     console.error(`Error deleting course ${courseId}:`, error);
-  //   }
-  // };
+  const deleteSitter = async (sitterId) => {
+    try {
+      axios.defaults.headers.common["Authorization"] = token;
+      await axios.put(
+        `http://localhost:8080/dashboard/deletesitter/${sitterId}`
+      );
+      setSitters(sitters.filter((sitter) => sitter.id !== sitterId));
+      console.log(`Sitter ${sitterId} deleted successfully.`);
+    } catch (error) {
+      console.error(`Error deleting sitter ${sitterId}:`, error);
+    }
+  };
 
-
-  const openModal = (course) => {
-    setSelectedCourse(course);
+  const openModal = (sitter) => {
+    setSelectedSitter(sitter);
     setShowModal(true);
     console.log("Modal is opened");
   };
 
   const closeModal = () => {
     setShowModal(false);
-    setSelectedCourse(null);
+    setSelectedSitter(null);
   };
 
-  // const updateCourse = (updatedCourse) => {
-  //   const updatedCourses = courses.map((course) =>
-  //     course.id === updatedCourse.id ? updatedCourse : course
-  //   );
+  const addedSitter = (newCourse) => {
+    setSitters([...sitters, newCourse]);
+  };
 
-  //   setCourses(updatedCourses);
-  // };
-
-  // const addedCourse = (newCourse) => {
-  //   setCourses([...courses, newCourse]); // Add the new course to the existing list
-  // };
-  
-  // const attendanceCourse = (selectedCourse) => {
-  //   setSelectedCourse(selectedCourse);
-  //   setShowAttendanceModal(
-  //     (prevShowAttendanceModal) => !prevShowAttendanceModal
-  //   );
-  // };
+ 
 
   return (
     <>
@@ -189,12 +160,6 @@ function SittersTable() {
                         >
                           Name
                         </th>
-                        {/* <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-                        >
-                          Detail
-                        </th> */}
                         <th
                           scope="col"
                           class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase "
@@ -225,25 +190,6 @@ function SittersTable() {
                         >
                           Image
                         </th>
-
-                        {/* <th
-                          scope="col"
-                          class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase "
-                        >
-                          Rate
-                        </th>
-                        <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase "
-                        >
-                          Date
-                        </th> */}
-                        {/* <th
-                          scope="col"
-                          class="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-                        >
-                          End_Time
-                        </th> */}
                         <th
                           scope="col"
                           class="px-6 py-3 text-end text-xs font-medium text-gray-500 uppercase "
@@ -263,7 +209,7 @@ function SittersTable() {
                             style={{ width: "100%" }}
                           >
                             <td class="px-6 py-4  text-sm h-20 font-medium text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                              <Link to={`/details/${sitter.id}`}>
+                              <Link to={`/sitter/${sitter.id}`}>
                                 {sitter.user_name}{" "}
                               </Link>
                             </td>
@@ -289,68 +235,32 @@ function SittersTable() {
                                 />
                               )}
                             </td>
-                            {/* <td class="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                              {course.rate}
-                            </td>
-                            <td class="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                              {course.start_time}
-                            </td> */}
 
                             <td class="px-6 py-4 w-1/8 h-20 text-end whitespace-nowrap  text-sm font-medium ">
-                              {/* <button
-                                type="button"
-                                onClick={() => attendanceCourse(course)}
-                              >
-                                <img
-                                  className="h-6 w-6"
-                                  src={attendance}
-                                  alt=""
-                                />
-                              </button> */}
                               <button
                                 type="button"
-                                onClick={() => openModal(sitter)}
-                              >
-                                <img
-                                  className="  h-6 w-6  "
-                                  src={edit}
-                                  alt=""
-                                />
-                              </button>
-                              {/* <button
-                                type="button"
-                                onClick={() => showConfirmationDialog(course.id)}
+                                onClick={() =>
+                                  showConfirmationDialog(sitter.id)
+                                }
                                 className="inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent text-blue-600 hover:text-blue-800 disabled:opacity-50 disabled:pointer-events-none dark:text-blue-500 dark:hover:text-blue-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600"
                               >
                                 <img className="h-6 w-6" src={deletee} alt="" />
-                              </button> */}
+                              </button>
                             </td>
                           </tr>
                         ))}
                     </tbody>
                   </table>
                 </div>
-                {/* {showModal && (
-                  <CourseModal
-                    course={selectedCourse}
-                    closeModal={closeModal}
-                    updateCourse={updateCourse}
+
+                {showCreateModal && (
+                  <CreateSitter
+                    addsitter={createSitter}
+                    closeModal={() => setShowCreateModal(false)}
+                    addedSitter={addedSitter} // Pass the addedCourse function
                   />
                 )}
-                {showCreateModal && (
-                  <CreateCourse
-                    addcourse={createCourse}
-                    closeModal={() => setShowCreateModal(false)}
-                    addedCourse={addedCourse} // Pass the addedCourse function
-                  />
-                )} */}
-                {/* {showAttendanceModal && (
-                  <AttendancesModal
-                    course={selectedCourse}
-                    closeModal={() => setShowAttendanceModal(false)}
-                    getAttendances={attendanceCourse}
-                  />
-                )} */}
+             
               </div>
               <div class="py-1 px-4">
                 <nav class="flex items-center space-x-1">

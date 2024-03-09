@@ -1,8 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Dashboard from "../../dashboard/src/pages/Dashboard";
-import Details from "./pages/Details";
 import Login from "./pages/Login";
+import SitterDetail from "./pages/SitterDetail";
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/home" element={<Dashboard />} />
-            <Route path="/details/:id" element={<Details />} />
+            <Route path='/sitter/:id' element={<SitterDetail />} />
           </Routes>
         </BrowserRouter>
       </header>
