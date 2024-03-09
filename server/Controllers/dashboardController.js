@@ -9,12 +9,11 @@ const upload = multer({ storage: storage }).single("image");
 const Joi = require("joi");
 
 const addbabysitter = async (req, res) => {
-  
-    // const { role } = req.user;
+    const { role } = req.user;
 
-    // if (role !== 'admin') {
-    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
-    // }
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
 
     upload(req, res, async function (err) {
       if (err) {
@@ -125,10 +124,10 @@ const uploadImageToFirebase = async (imageBuffer) => {
   
 const allusers = async (req, res) => {
   try {
-    // const {role} = req.user;
-    // if (role !== 'admin') {
-    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
-    // }
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
 
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 5;
@@ -196,10 +195,10 @@ const login = async (req, res) => {
 
 const countusers = async (req, res) => {
   try {
-    // const {role} = req.user;
-    // if (role !== 'admin') {
-    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
-    // }
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
     const count = await Dashboard.countusers();
     return res.status(200).json({ succes: true, count });
   } catch (err) {
@@ -210,10 +209,10 @@ const countusers = async (req, res) => {
 
 const allsitters = async (req, res) => {
   try {
-    // const {role} = req.user;
-    // if (role !== 'admin') {
-    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
-    // }
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
 
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 5;
@@ -233,10 +232,10 @@ const allsitters = async (req, res) => {
 
 const countsitters = async (req, res) => {
   try {
-    // const {role} = req.user;
-    // if (role !== 'admin') {
-    //   return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
-    // }
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
     const count = await Dashboard.countsitters();
     return res.status(200).json({ succes: true, count });
   } catch (err) {
@@ -244,11 +243,199 @@ const countsitters = async (req, res) => {
     res.status(500).json({ success: false, message: "Internal server error" });
   }
 };
+
+
+const countrequests = async (req, res) => {
+  try {
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
+    const count = await Dashboard.countrequests();
+    return res.status(200).json({ succes: true, count });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+
+const allfamiliesrequests = async (req, res) => {
+  try {
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
+
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 5;
+    const requests = await Dashboard.allfamiliesrequests(page, pageSize);
+    const totalCount = await Dashboard.countrequests();
+    const totalPages = Math.ceil(totalCount / pageSize);
+    console.log(totalCount, totalPages);
+    return res
+      .status(200)
+      .json({ succes: true, requests, totalCount, totalPages });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+const deleteuser = async (req, res) => {
+  try {
+    const {role } = req.user;
+
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin users are allowed.' });
+    }
+
+    const userID = req.params.id;
+
+    await Dashboard.deleteuser(userID);
+
+    res.status(200).json("user deleted successfully");
+  } catch (error) {
+    console.error("Error in updateusers controller:", error);
+    res.status(500).json({ error: "Error in updateusers controller" });
+  }
+};
+
+const deletesitter = async(req,res)=>{
+  try {
+    const {role } = req.user;
+
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin users are allowed.' });
+    }
+
+    const sitterID = req.params.id;
+
+    await Dashboard.deletesitter(sitterID);
+
+    res.status(200).json("sitter deleted successfully");
+  } catch (error) {
+    console.error("Error in updateusers controller:", error);
+    res.status(500).json({ error: "Error in updateusers controller" });
+  }
+}
+
+const sittertimes = async (req,res)=>{
+  try {
+    
+    const {role } = req.user;
+
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin users are allowed.' });
+    }
+
+    const sitterID = req.params.id;
+ 
+    const times = await Dashboard.sittertimes(sitterID);
+    return res.status(200).json({ succes: true, times });
+  }catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "sitter deleted failed" });
+  }
+}
+
+
+const detail = async (req,res)=>{
+  try{
+      const sitterID = req.params.id;
+      const sitter = await Dashboard.detail(sitterID);
+      res.status(200).json({ success: true, sitter });
+  }
+  catch (err) {
+      console.error("Error adding details:", err);
+      res.status(500).json({ success: false, error: "sitter info get failed" });
+  }
+
+}
+
+
+const countsitterapplications = async (req, res) => {
+  try {
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
+    const sitterID = req.params.id;
+    const count = await Dashboard.countsitterapplications(sitterID);
+    console.log(count);
+    console.log("helloooo");
+    console.log(sitterID);
+    return res.status(200).json({ succes: true, count });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+const sittingscount= async (req, res) => {
+  try {
+    const {role} = req.user;
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin are allowed.' });
+    }
+    const sitterID = req.params.id;
+    const count = await Dashboard.sittingscount(sitterID);
+    return res.status(200).json({ succes: true, count });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, message: "Internal server error" });
+  }
+};
+
+const familytimes = async (req, res, next) => {
+
+  try {
+    const sitterID = req.params.id 
+    const families = await Dashboard.familytimes(sitterID);
+    res.status(200).json({ success: true, families });
+  } 
+  
+  catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: 'Error in getting families requests times' });
+  }
+};
+
+
+const deleterequest = async(req,res)=>{
+  try {
+    const {role } = req.user;
+
+    if (role !== 'admin') {
+      return res.status(403).json({ success: false, message: 'Access denied. Only admin users are allowed.' });
+    }
+
+    const requestID = req.params.id;
+
+    await Dashboard.deleterequest(requestID);
+
+    res.status(200).json("request deleted successfully");
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ success: false, error: "request deleted failed" });
+  }
+}
+
 module.exports = {
     addbabysitter,
     allusers,
     login,
     countusers,
     allsitters,
-    countsitters
+    countsitters,
+    countrequests,
+    allfamiliesrequests,
+    deleteuser,
+    deletesitter,
+    sittertimes,
+    detail,
+    countsitterapplications,
+    sittingscount,
+    familytimes,
+    deleterequest
 }
