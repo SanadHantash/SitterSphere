@@ -216,7 +216,7 @@ const forgetpassword = async (req, res) => {
   const { email } = req.body;
   const user = await User.login(email);
 
-  if (!user || user.is_deleted) {
+  if (!user || user.is_deleted || !user.email) {
     return res
       .status(401)
       .json({ success: false, message: "Invalid email or user not found" });

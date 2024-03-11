@@ -17,10 +17,14 @@ import Subscription from './Pages/Subscription';
 import PremiumSubscribe from './Components/CheckoutForm';
 import Success from './Pages/Success';
 import AboutUs from './Pages/AboutUs';
-//import { useAuth } from "./Context/AuthContext";
+import Profile from './Pages/Profile';
+import PasswordForget from './Pages/PasswordForget';
+import VerifyCode from "./Pages/VerifyCode";
+import ResetPass from "./Pages/ResetPass";
+import { useAuth } from "./Context/AuthContext";
 
 function App() {
-  // const { isLoggedIn } = useAuth();
+  const { isLoggedIn } = useAuth();
   return (
     <div className="App">
       <header className="App-header">
@@ -28,6 +32,13 @@ function App() {
       <Header />
           <Routes>
           <Route path="/" element={<Home />} />
+          {isLoggedIn ? (
+              <>
+                <Route path="/profile" element={<Profile />} />
+              </>
+            ) : (
+              <Route path="/profile" element={<LoginPage />} />
+            )}
           <Route path="/Login" element={<LoginPage />} />
             <Route path="/signup" element={<RegisterPage />} />
           <Route path="/sitters" element={<BabySitters />} />
@@ -40,6 +51,10 @@ function App() {
             <Route path="/subscribe" element={<Subscription />} />
             <Route path="/premium-subscribe" element={<PremiumSubscribe />} />
             <Route path="/successs" element={<Success />} />
+            <Route path="/profile" element= {<Profile />} />
+            <Route path="/passwordforget" element={<PasswordForget />} />
+            <Route path="/verify-code" element={<VerifyCode />} />
+            <Route path="/reset-password" element={<ResetPass />} />
           </Routes>
           <Footer />
         </BrowserRouter>

@@ -131,7 +131,7 @@ const LoginPage = () => {
                     <div class="flex items-center justify-between">
                       <div class="flex items-start">
                         <div class="ml-3 text-sm">
-                          <Link to="/emailForgot">
+                          <Link to="/passwordforget">
                             <button class="text-gray-500 dark:text-gray-300">
                               Forgot your password?
                             </button>
@@ -141,7 +141,7 @@ const LoginPage = () => {
                     </div>
                     <button
                       type="submit"
-                      className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-950 hover:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 mt-10"
+                      className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-[#FF90BC] hover:bg-[#FFC0D9] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-purple-500 mt-10"
                     >
                       <span class="relative px-5 py-2.5 transition-all ease-in duration-75 rounded-md group-hover:bg-opacity-0">
                         Sign In

@@ -39,7 +39,7 @@ function BabySitterdetail() {
   const { id } = useParams();
 
   const addedApplication = (application) => {
-    // Logic to handle the added application
+
     console.log("Application added:", application);
   };
 

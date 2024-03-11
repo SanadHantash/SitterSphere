@@ -5,7 +5,7 @@ import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
-import background from "../Assets/background.png";
+import background from "../Assets/back.png";
 
 const Login = () => {
   const { login } = useAuth();

@@ -14,6 +14,7 @@ const homeRoute = require ("./Routes/homeRoute");
 const familyRoute = require("./Routes/familyRoute");
 const reactionRoute = require("./Routes/reactionRoute");
 const contactusRoute = require("./Routes/contactusRoute");
+const userprofileRoute = require("./Routes/userprofileRoute")
 app.use(session({ secret: "cats", resave: true, saveUninitialized: true }));
 
 app.use(express.json());
@@ -32,6 +33,7 @@ app.use(homeRoute);
 app.use(familyRoute);
 app.use(reactionRoute);
 app.use(contactusRoute);
+app.use(userprofileRoute);
 
 app.listen(port, () => {
   console.log(`server runnning in port ${port}`);
