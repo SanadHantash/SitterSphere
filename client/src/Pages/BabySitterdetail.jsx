@@ -125,7 +125,7 @@ function BabySitterdetail() {
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
               <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
-                babysitterDetails.sitter[0]["0_12_months"] ? (
+                babysitterDetails.sitter[0]["months_0_12"] ? (
                   <>
                     <img
                       src={months}
@@ -153,7 +153,7 @@ function BabySitterdetail() {
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
               <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
-                babysitterDetails.sitter[0]["1_2_years"] ? (
+                babysitterDetails.sitter[0]["years_1_2"] ? (
                   <>
                     <img
                       src={years1_2}
@@ -181,7 +181,7 @@ function BabySitterdetail() {
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
               <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
-                babysitterDetails.sitter[0]["2_3_years"] ? (
+                babysitterDetails.sitter[0]["years_2_3"] ? (
                   <>
                     <img
                       src={years2_3}
@@ -209,7 +209,7 @@ function BabySitterdetail() {
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
               <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
-                babysitterDetails.sitter[0]["3_5_years"] ? (
+                babysitterDetails.sitter[0]["years_3_5"] ? (
                   <>
                     <img
                       src={years3_5}
@@ -237,7 +237,7 @@ function BabySitterdetail() {
             <div class="p-2 md:w-1/5 sm:w-1/5 w-full">
               <div class="border-2 bg-[#F9F9E0] border-gray-600 px-2 py-4 rounded-lg transform transition duration-500 hover:scale-110">
                 {babysitterDetails.sitter &&
-                babysitterDetails.sitter[0]["3_5_years"] ? (
+                babysitterDetails.sitter[0]["years_5"] ? (
                   <>
                     <img
                       src={years5}

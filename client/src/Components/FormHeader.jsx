@@ -1,12 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
-//import logo2 from "../assets/logo2.png";
+import logo from "../Assets/logo3.png";
 
 function FormHeader({ heading, paragraph, linkName, linkUrl = "#" }) {
   return (
     <div className="mb-8">
       <div className="flex justify-center mt-6 mb-0">
-        {/* <img alt="" className="h-14 w-44 " src={logo2} /> */}
+        <img alt="" className="h-44 w-44 " src={logo} />
       </div>
       <h2 className="mt-6 text-center text-2xl font-extrabold text-gray-900">
         {heading}

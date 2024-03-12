@@ -33,13 +33,22 @@ User.register = async (
   last_name,
   user_name,
   email,
-  hashPassword,
-  phonenumber
+  hashedPassword,
+  phonenumber,
+  address,
+  imageUrl
 ) => {
   try {
     const result = await db.query(
-      "INSERT INTO users(first_name,last_name,user_name, email, password, phonenumber,role_id) VALUES($1, $2, $3, $4, $5, $6,2) RETURNING *",
-      [first_name, last_name, user_name, email, hashPassword, phonenumber]
+      "INSERT INTO users(first_name,last_name,user_name, email, password, phonenumber,address,image,role_id) VALUES($1, $2, $3, $4, $5, $6,$7,$8,2) RETURNING *",
+      [first_name,
+        last_name,
+        user_name,
+        email,
+        hashedPassword,
+        phonenumber,
+        address,
+        imageUrl]
     );
 
   

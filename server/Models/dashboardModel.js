@@ -354,8 +354,7 @@ Dashboard.familytimes = async (sitterID) => {
       requests.has_car,
       REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
       requests.children_count,
-      requests.start_time,
-      requests.end_time
+      requests.time,
   FROM 
       familysitting_time
       INNER JOIN requests_applications ON familysitting_time.request_id = requests_applications.id
@@ -368,7 +367,7 @@ Dashboard.familytimes = async (sitterID) => {
 
     const formattedResult = await Promise.all(
       queryResult.rows.map(async (row) => {
-        if (row.start_time !== null) {
+        if (row.time !== null) {
           row.start_time = row.start_time.toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",

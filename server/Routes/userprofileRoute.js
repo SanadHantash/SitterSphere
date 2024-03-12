@@ -8,9 +8,9 @@ const middleware = require('../middleware/authorization');
 
 router.get('/profile', middleware.authorize, userprofileController.userinfo);
 router.put('/profile/uploadimage', middleware.authorize, userprofileController.profilepicture);
-router.put('/myprofile/updateinfo', middleware.authorize, userprofileController.updateinfo);
-router.put('/myprofile/updatepassword', middleware.authorize, userprofileController.updatepassword);
-
+router.put('/profile/updateinfo', middleware.authorize, userprofileController.updateinfo);
+router.put('/profile/updatepassword', middleware.authorize, userprofileController.updatepassword);
+router.get('/profile/myrequests',middleware.authorize, userprofileController.myrequests);
 
 module.exports = router;
 

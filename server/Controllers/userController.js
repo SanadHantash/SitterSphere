@@ -1,19 +1,27 @@
 const User = require("../Models/userModel");
-
+const multer = require("multer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const Joi = require("joi");
 require("dotenv").config();
 const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 const nodemailer = require("nodemailer");
-
+const { admin } = require("../firebase");
+const storage = multer.memoryStorage();
+const upload = multer({ storage: storage }).single("image");
 
 function cont(req, res) {
   res.status(200).json("you are in");
 }
 
 const register = async (req, res) => {
-  const { first_name, last_name, user_name, email, password, phonenumber } =
+
+  upload(req, res, async function (err) {
+    if (err) {
+      return res.status(400).json({ success: false, error: err.message });
+    }
+
+  const { first_name, last_name, user_name, email, password, phonenumber,address } =
     req.body;
 
   const schema = Joi.object({
@@ -47,7 +55,10 @@ const register = async (req, res) => {
         "string.pattern.base":
           "Invalid phone number format. Please enter a valid 10-digit phone number starting with 077, 078, or 079.",
       }),
+      address:Joi.string()
   });
+      const imageBuffer = req.file ? req.file.buffer : null;
+      const imageUrl = await uploadImageToFirebase(imageBuffer);
 
   const { error } = schema.validate({
     first_name,
@@ -56,6 +67,7 @@ const register = async (req, res) => {
     email,
     password,
     phonenumber,
+    address
   });
 
   if (error) {
@@ -71,7 +83,9 @@ const register = async (req, res) => {
       user_name,
       email,
       hashedPassword,
-      phonenumber
+      phonenumber,
+      address,
+      imageUrl
     );
     console.log(user);
     const token = jwt.sign(
@@ -103,6 +117,26 @@ const register = async (req, res) => {
         .json({ success: false, error: "User registration failed" });
     }
   }
+})
+  };
+
+
+const uploadImageToFirebase = async (imageBuffer) => {
+  const bucket = admin.storage().bucket();
+
+  const folderPath = "profiles/";
+
+  const uniqueFilename = "profile-" + Date.now() + ".png";
+
+  const filePath = folderPath + uniqueFilename;
+
+  const file = bucket.file(filePath);
+
+  await file.createWriteStream().end(imageBuffer);
+
+  const imageUrl = `https://storage.googleapis.com/${bucket.name}/${filePath}`;
+
+  return imageUrl;
 };
 
 

@@ -12,11 +12,18 @@ const upload = multer({ storage: storage }).single("image");
 const userinfo = async (req, res) => {
   try {
     const userID = req.user.userId;
+    const userRole =req.user.role;
 
-
+    if (userRole === "sitter") {
+      const userID = req.user.userId
+      const info = await Profile.usersitterinfo(userID);
+      res.status(201).json({ success: true, info });
+  } 
+   else {
     const info = await Profile.userinfo(userID);
-
     res.status(200).json({ success: true, info });
+  }
+   
   } catch (err) {
     console.error(err);
     res
@@ -176,9 +183,23 @@ const updatepassword = async (req, res) => {
 };
 
 
+const myrequests = async (req,res)=>{
+  try{
+      const userID = req.user.userId;
+      const myrequests = await Profile.myrequests(userID);
+      console.log(myrequests);
+      res.status(201).json({ success: true, myrequests });
+  }
+  catch (err) {
+      console.error("Error adding details:", err);
+      res.status(500).json({ success: false, error: "Your details get failed" });
+  }
+}
+
 module.exports = {
   userinfo,
   profilepicture,
   updateinfo,
-  updatepassword
+  updatepassword,
+  myrequests
 };

@@ -6,9 +6,14 @@ const Sitter = require("../Models/sitterModel");
 const addmydetails = async (req, res) => {
     try {
         const userID = req.user.userId;
-        const { education, description, drivers_license, non_smoker, cooking, draw, first_aid,experience_level } = req.body;
-        
-        await Sitter.addmydetails(userID, education, description, drivers_license, non_smoker, cooking, draw, first_aid,experience_level);
+        const {description,months_0_12,years_1_2,years_2_3,years_3_5,years_5,can_drive, non_smoker, cooking, draw, first_aid,reading,has_car,music,experience_level,salary } = req.body;
+        const isFound = await Sitter.mydetail(userID);
+    
+        if (isFound) {
+          return res.status(400).json({ success: false, error: "you  already added your Info" });
+        }
+
+        await Sitter.addmydetails(userID,description,months_0_12,years_1_2,years_2_3,years_3_5,years_5,can_drive, non_smoker, cooking, draw, first_aid,reading,has_car,music,experience_level,salary);
 
         res.status(201).json({ success: true, message: "Your details added successfully" });
     } catch (err) {
@@ -36,7 +41,7 @@ const detail = async (req,res)=>{
         res.status(200).json({ success: true, sitter });
     }
     catch (err) {
-        console.error("Error adding details:", err);
+        console.error("Error get details:", err);
         res.status(500).json({ success: false, error: "sitter info get failed" });
     }
 
@@ -68,10 +73,23 @@ const applysitter = async(req,res)=>{
     }
 }
 
+const mydetail = async(req,res)=>{
+    try{
+        const userID= req.user.userId; 
+        const mydetail = await Sitter.mydetail(userID)
+        res.status(200).json({ success: true, mydetail });
+    }
+    catch (err) {
+        console.error("Error get details:", err);
+        res.status(500).json({ success: false, error: "my detail get failed" });
+    }
+}
+
 module.exports = {
     addmydetails,
     allsitters,
     detail,
-    applysitter
+    applysitter,
+    mydetail
   };
   

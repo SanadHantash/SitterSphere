@@ -34,7 +34,7 @@ function AgesModal() {
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4  m-10">
         {RequestDetails.request &&
           RequestDetails.request[0] &&
-          RequestDetails.request[0]["0_12_months"] && (
+          RequestDetails.request[0]["months_0_12"] && (
             <div className="bg-[#F9F9E0] bg-opacity-60 p-4 rounded-md">
               <div class="inline-flex align-middle justify-center items-center select-none text-white">
                 <div className="flex items-center">
@@ -54,7 +54,7 @@ function AgesModal() {
 
         {RequestDetails.request &&
           RequestDetails.request[0] &&
-          RequestDetails.request[0]["1_2_years"] && (
+          RequestDetails.request[0]["years_1_2"] && (
             <div className="bg-[#F9F9E0] bg-opacity-60 p-4 rounded-md">
               <div class="inline-flex align-middle justify-center items-center select-none text-white">
                 <div className="flex items-center">
@@ -74,7 +74,7 @@ function AgesModal() {
 
         {RequestDetails.request &&
           RequestDetails.request[0] &&
-          RequestDetails.request[0]["2_3_years"] && (
+          RequestDetails.request[0]["years_2_3"] && (
             <div className="bg-[#F9F9E0] bg-opacity-60 p-4 rounded-md">
               <div class="inline-flex align-middle justify-center items-center select-none text-white">
                 <div className="flex items-center">
@@ -94,7 +94,7 @@ function AgesModal() {
 
         {RequestDetails.request &&
           RequestDetails.request[0] &&
-          RequestDetails.request[0]["3_5_years"] && (
+          RequestDetails.request[0]["years_3_5"] && (
             <div className="bg-[#F9F9E0] bg-opacity-60 p-4 rounded-md">
               <div class="inline-flex align-middle justify-center items-center select-none text-white">
                 <div className="flex items-center">
@@ -114,7 +114,7 @@ function AgesModal() {
 
         {RequestDetails.request &&
           RequestDetails.request[0] &&
-          RequestDetails.request[0]["+5_years"] && (
+          RequestDetails.request[0]["years_5"] && (
             <div className="bg-[#F9F9E0] bg-opacity-60 p-4 rounded-md">
               <div class="inline-flex align-middle justify-center items-center select-none text-white">
                 <div className="flex items-center">

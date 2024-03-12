@@ -25,6 +25,27 @@ Profile.userinfo = async (userID) => {
         throw err;
     }
 }
+Profile.usersitterinfo = async (userID) => {
+    try{
+            const result = await db.query("SELECT *, REPLACE(users.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/BabySitters/', '') AS image,roles.role FROM users INNER JOIN roles ON users.role_id = roles.id WHERE users.id = $1;", [userID]);
+
+            const formattedResult = await Promise.all(
+                result.rows.map(async (row) => {
+              
+                  const imageRef = storage.bucket().file('BabySitters/' + row.image);
+                  const [url] = await imageRef.getSignedUrl({ action: 'read', expires: '01-01-2500' });
+                  row.image = url;
+              
+                  return row;
+                })
+              );
+            
+            return formattedResult;
+    }
+    catch(err){
+        throw err;
+    }
+}
 
 
 Profile.profilepicture  = async (userID,imageUrl) => {
@@ -86,6 +107,48 @@ Profile.updatepassword = async (userID,hashedPassword) =>{
 }
 
 
+Profile.myrequests = async (userID) => {
+  try {
+    const result = await db.query(
+      `SELECT requests.id, requests.title, requests.description,requests.children_count,
+              REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
+              requests.pay, requests.time
+       FROM requests
+       WHERE requests.user_id = $1`,
+      [userID]
+    );
+
+    const formattedResult = await Promise.all(
+      result.rows.map(async (row) => {
+        if (row.time !== null) {
+          // Format the time field if it's not null
+          row.time = new Date(row.time).toLocaleDateString("en-US", {
+            weekday: "long",
+            year: "numeric",
+            month: "long",
+            day: "numeric",
+            hour: "numeric",
+          });
+        }
+
+        const imageRef = storage.bucket().file("requests/" + row.image);
+        const [url] = await imageRef.getSignedUrl({
+          action: "read",
+          expires: "01-01-2500",
+        });
+
+        row.image = url;
+
+        return row;
+      })
+    );
+
+    return formattedResult;
+  } catch (err) {
+    console.error('Error fetching user requests:', err);
+    throw err;
+  }
+};
 
 
 module.exports = Profile

@@ -15,7 +15,7 @@ const addrequest = async (req, res) => {
         }
             const userID = req.user.userId
         const {
-            title,description,children_count,ages,requirements,start_time,end_time
+            title,description,children_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,can_drive,non_smoker,cooking,draw,first_aid,has_car,reading,music,time,pay
         } = req.body;
         const imageBuffer = req.file ? req.file.buffer : null;
   
@@ -23,7 +23,26 @@ const addrequest = async (req, res) => {
   
   
         await Family.addrequest(
-            userID,title,description,children_count,ages,requirements,imageUrl,start_time,end_time
+          userID,
+          title,
+          description,
+          children_count,
+          months_0_12,
+          years_1_2,
+          years_2_3,
+          years_3_5,
+          years_5,
+          can_drive,
+          non_smoker,
+          cooking,
+          draw,
+          first_aid,
+          has_car,
+          reading,
+          music,
+          imageUrl,
+          time,
+          pay
         );
   
         res
@@ -57,18 +76,7 @@ const addrequest = async (req, res) => {
   
 
 
-const mydetails = async (req,res)=>{
-    try{
-        const userID = req.user.userId;
-        const mydetails = await Sitter.mydetails(userID);
-        res.status(201).json({ success: true, mydetails });
-    }
-    catch (err) {
-        console.error("Error adding details:", err);
-        res.status(500).json({ success: false, error: "Your details get failed" });
-    }
 
-}
 
 const allrequests = async (req, res, next) => {
 
@@ -125,7 +133,6 @@ const applyrequest = async (req, res) => {
 module.exports = {
     addrequest,
     allrequests,
-    mydetails,
     detail,
     applyrequest
   };

@@ -65,8 +65,7 @@ Home.recentrequests = async () => {
         requests.has_car,
         REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
         requests.children_count,
-        requests.start_time,
-        requests.end_time
+        requests.time
       FROM 
       requests
       INNER JOIN 
@@ -77,27 +76,14 @@ Home.recentrequests = async () => {
       
     const formattedResult = await Promise.all(
         queryResult.rows.map(async (row) => {
-          if (row.start_time !== null) {
-            row.start_time = row.start_time.toLocaleDateString('en-US', {
+          if (row.time !== null) {
+            row.time = row.time.toLocaleDateString('en-US', {
               weekday: 'long',
               year: 'numeric',
               month: 'long',
               day: 'numeric',
               hour: 'numeric',
             });
-  
-            
-  
-            
-            if (row.end_time !== null) {
-              row.end_time = row.end_time.toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
-                hour: 'numeric',
-              });
-            }
             
           }
       

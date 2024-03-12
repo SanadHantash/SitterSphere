@@ -1,19 +1,45 @@
 import React, { useState, useEffect } from "react";
-
-// import { useParams } from "react-router-dom";
-// import { useAuth } from "../Context/AuthContext";
-// import { useCookies } from "react-cookie";
+import axios from "axios";
+import { useParams } from "react-router-dom";
+import { useAuth } from "../Context/AuthContext";
+import { useCookies } from "react-cookie";
 import ProfilePass from "../Components/ProfilePass";
 
 import PublecProfile from "../Components/PublecProfile";
+import Profilefamily from "../Components/Profilefamily";
+import ProfileSitter from "../Components/ProfileSitter";
 
 function Profile() {
   const [showSidebar, setShowSidebar] = useState(false);
   const [activeTab, setActiveTab] = useState("userProfile");
+  const [userInfo, setUserInfo] = useState([]);
 
+  const [cookies] = useCookies(["token"]);
+  const token = cookies.Token;
   const toggleSidebar = () => {
     setShowSidebar(!showSidebar);
   };
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        if (!token) {
+          console.error("Token not available.");
+          return;
+        }
+
+        axios.defaults.headers.common["Authorization"] = token;
+
+        const response = await axios.get("http://localhost:8080/profile");
+
+        setUserInfo(response.data.info[0]);
+        console.log(response.data);
+      } catch (error) {
+        console.error("Error fetching user data:", error.response);
+      }
+    };
+
+    fetchUserData();
+  }, [token]);
 
   return (
     <>
@@ -56,12 +82,36 @@ function Profile() {
             >
               Change Password
             </button>
-        
+            {userInfo.role === "sitter" ? (
+              <button
+                className={`flex items-center px-3 py-2.5 font-bold  border rounded-full ${
+                  activeTab === "info"
+                    ? "bg-white  text-indigo-900"
+                    : "bg-white"
+                }`}
+                onClick={() => setActiveTab("info")}
+              >
+                 my info
+              </button>
+            ) : (
+              <button
+                className={`flex items-center px-3 py-2.5 font-bold  border rounded-full ${
+                  activeTab === "requests"
+                    ? "bg-white  text-indigo-900"
+                    : "bg-white"
+                }`}
+                onClick={() => setActiveTab("requests")}
+              >
+                my request
+              </button>
+            )}
           </div>
         </aside>
         <div className="w-4/5 p-4 h-full  bg-white  rounded-lg border-b-2 border-r-2 flex-grow ">
           {activeTab === "userProfile" && <PublecProfile />}
           {activeTab === "pass" && <ProfilePass />}
+          {activeTab === "requests" && <Profilefamily />}
+          {activeTab === "info" && <ProfileSitter />}
         </div>
       </div>
     </>

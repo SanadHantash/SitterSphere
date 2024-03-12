@@ -30,7 +30,7 @@ function ProfilePass() {
       axios.defaults.headers.common["Authorization"] = token;
 
       const response = await axios.put(
-        "http://localhost:8080/myprofile/updatepassword",
+        "http://localhost:8080/profile/updatepassword",
         userPass
       );
 
@@ -77,7 +77,7 @@ function ProfilePass() {
               />
             </div>
             <button
-              className="bg-indigo-950 hover:bg-indigo-900 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+              className="bg-[#FF90BC] hover:bg-[#FFC0D9] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               type="button"
               onClick={handleUpdate}
             >

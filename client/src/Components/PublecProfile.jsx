@@ -63,7 +63,7 @@ function PublecProfile() {
       axios.defaults.headers.common["Authorization"] = token;
 
       const response = await axios.put(
-        "http://localhost:8080/myprofile/updateinfo",
+        "http://localhost:8080/profile/updateinfo",
         userInfo
       );
 

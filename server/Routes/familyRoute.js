@@ -8,4 +8,5 @@ router.get('/family/allrequests', familyController.allrequests);
 router.get('/family/request/:id', familyController.detail);
 router.post('/family/request/:id/apply',middleware.authorize, familyController.applyrequest);
 
+
 module.exports = router;
