@@ -1,4 +1,5 @@
 const Family = require("../Models/familyModel");
+const Dashboard = require("../Models/dashboardModel")
 const multer = require("multer");
 const { admin } = require("../firebase");
 const storage = multer.memoryStorage();
@@ -81,8 +82,13 @@ const addrequest = async (req, res) => {
 const allrequests = async (req, res, next) => {
 
   try {
-    const requests = await Family.allrequests();
-    res.status(200).json({ success: true, requests });
+    const page = parseInt(req.query.page) || 1;
+    const pageSize = parseInt(req.query.pageSize) || 6;
+
+    const requests = await Family.allrequests(page, pageSize);
+    const totalCount = await Dashboard.countrequests();
+    const totalPages = Math.ceil(totalCount / pageSize);
+    res.status(200).json({ success: true, requests,totalCount, totalPages });
   } 
   
   catch (err) {

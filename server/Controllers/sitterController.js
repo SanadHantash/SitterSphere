@@ -1,5 +1,5 @@
 const Sitter = require("../Models/sitterModel");
-
+const Dashboard = require("../Models/dashboardModel")
 
 
 
@@ -26,8 +26,12 @@ const addmydetails = async (req, res) => {
 
 const allsitters = async(req,res)=>{
     try{
+        const page = parseInt(req.query.page) || 1;
+        const pageSize = parseInt(req.query.pageSize) || 9;
         const sitters = await Sitter.allsitters();
-        res.status(200).json({ success: true, sitters });
+        const totalCount = await Dashboard.countrequests(page, pageSize);
+        const totalPages = Math.ceil(totalCount / pageSize);
+        res.status(200).json({ success: true, sitters,totalCount, totalPages });
     }   catch (err) {
         console.error("Error adding details:", err);
         res.status(500).json({ success: false, error: "Sitters get failed" });

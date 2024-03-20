@@ -140,7 +140,8 @@ Sitter.isapplied = async (userID, sitterID) => {
 
 Sitter.mydetail = async (userID) => {
   try {
-    const result = await db.query(`
+    const offset = (page - 1) * pageSize;
+    let queryString =(`
         SELECT 
         sitters.id,
         sitters.rate,
@@ -158,7 +159,9 @@ Sitter.mydetail = async (userID) => {
     WHERE 
         sitters.is_deleted = false and users.is_deleted = false and sitters.user_id=$1
       `,[userID]);
+      queryString += ` ORDER BY requests.id LIMIT $1 OFFSET $2`;
 
+      const queryResult = await db.query(queryString, [pageSize, offset]);
     const formattedResult = await Promise.all(
       result.rows.map(async (row) => {
         const imageRef = storage.bucket().file("BabySitters/" + row.image);

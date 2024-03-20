@@ -220,7 +220,7 @@ const allsitters = async (req, res) => {
     const sitters = await Dashboard.allsitters(page, pageSize);
     const totalCount = await Dashboard.countsitters();
     const totalPages = Math.ceil(totalCount / pageSize);
-    console.log(totalCount, totalPages);
+  
     return res
       .status(200)
       .json({ succes: true, sitters, totalCount, totalPages });

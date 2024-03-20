@@ -121,7 +121,6 @@ Profile.myrequests = async (userID) => {
     const formattedResult = await Promise.all(
       result.rows.map(async (row) => {
         if (row.time !== null) {
-          // Format the time field if it's not null
           row.time = new Date(row.time).toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
@@ -150,5 +149,32 @@ Profile.myrequests = async (userID) => {
   }
 };
 
+Profile.myrequestapplications = async (userID,requestID) => {
+  try{
+    const result = await db.query(
+      `SELECT requests_applications.id, requests_applications.request_id, requests_applications.sitter_id,sitters.rate,users.user_name,sitters.experience_level,
+              REPLACE(users.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/BabySitters/', '') AS image,
+            
+       FROM requests_applications inner join sitters on sitters.id=requests_applications.sitter_id inner join users on users.id=requests_applications.user_id
+       WHERE requests.user_id = $1 and requests_applications.request_id =$2 `,
+      [userID]
+    );
+    const formattedResult = await Promise.all(
+      result.rows.map(async (row) => {
+    
+        const imageRef = storage.bucket().file('BabySitters/' + row.image);
+        const [url] = await imageRef.getSignedUrl({ action: 'read', expires: '01-01-2500' });
+        row.image = url;
+    
+        return row;
+      })
+    );
+  
+  return formattedResult;
+  }catch (err) {
+    console.error('Error fetching request applications:', err);
+    throw err;
+  }
+}
 
 module.exports = Profile

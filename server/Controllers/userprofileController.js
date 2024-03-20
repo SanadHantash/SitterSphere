@@ -187,7 +187,6 @@ const myrequests = async (req,res)=>{
   try{
       const userID = req.user.userId;
       const myrequests = await Profile.myrequests(userID);
-      console.log(myrequests);
       res.status(201).json({ success: true, myrequests });
   }
   catch (err) {
@@ -196,10 +195,24 @@ const myrequests = async (req,res)=>{
   }
 }
 
+const myrequestapplications = async(req,res)=>{
+  try{
+    const userID = req.user.userId;
+    const requestID =req.params.id;
+    const applications = await Profile.myrequestapplications(userID,requestID);
+      res.status(201).json({ success: true, applications });
+
+  } catch (err) {
+    console.error("Error adding details:", err);
+    res.status(500).json({ success: false, error: "Your details get failed" });
+}
+}
+
 module.exports = {
   userinfo,
   profilepicture,
   updateinfo,
   updatepassword,
-  myrequests
+  myrequests,
+  myrequestapplications
 };

@@ -57,37 +57,44 @@ Family.addrequest = async (
   }
 };
 
-Family.allrequests = async () => {
+Family.allrequests = async (page, pageSize) => {
   try {
-    const queryResult = await db.query(`
-        SELECT 
-          requests.id,
-          requests.title,
-          requests.description,
-          requests.non_smoker,
-          requests.can_drive,
-          requests.cooking,
-          requests.draw,
-          requests.first_aid,
-          requests.reading,
-          requests.music,
-          requests.has_car,
-          users.user_name,
-          REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
-          requests.children_count,
+    const offset = (page - 1) * pageSize;
+    let queryString = `
+      SELECT 
+        requests.id,
+        requests.title,
+        requests.description,
+        requests.non_smoker,
+        requests.can_drive,
+        requests.cooking,
+        requests.draw,
+        requests.first_aid,
+        requests.reading,
+        requests.music,
+        requests.has_car,
+        requests.pay,
+        users.user_name,
+        users.address,
+        REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
+        requests.children_count,
         time
-        FROM 
+      FROM 
         requests
-        INNER JOIN 
+      INNER JOIN 
         users ON users.id = requests.user_id
-        WHERE 
-        requests.is_deleted = false and users.is_deleted=false;
-      `);
+      WHERE 
+        requests.is_deleted = false and users.is_deleted=false
+    `;
+
+    queryString += ` ORDER BY requests.id LIMIT $1 OFFSET $2`;
+
+    const queryResult = await db.query(queryString, [pageSize, offset]);
 
     const formattedResult = await Promise.all(
       queryResult.rows.map(async (row) => {
         if (row.time !== null) {
-          row.time = row.time.toLocaleDateString("en-US", {
+          row.time = new Date(row.time).toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
             month: "long",
@@ -111,6 +118,7 @@ Family.allrequests = async () => {
     throw err;
   }
 };
+
 
 Family.detail = async (requestID) => {
   try {

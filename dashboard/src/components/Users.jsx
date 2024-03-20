@@ -9,13 +9,13 @@ function Users() {
   const [showModal, setShowModal] = useState(false);
   const [selectedUser, setSelectedUser] = useState(null);
   const [searchTerm, setSearchTerm] = useState("");
-  const [page, setPage] = useState(1); // Current page
-  const [limit, setLimit] = useState(5); // Users per page
+  const [page, setPage] = useState(1); 
+  const [limit, setLimit] = useState(5);
   const { headers } = useAuth();
   const [cookies] = useCookies(["token"]);
   const token = cookies.Token;
   useEffect(() => {
-    fetchUsers(); // Fetch users when component mounts or when page or limit changes
+    fetchUsers(); 
   }, [page, limit]);
 
   const fetchUsers = () => {
