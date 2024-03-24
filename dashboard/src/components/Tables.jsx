@@ -11,8 +11,6 @@ function Tables() {
       <Users />
       <SittersTable />
       <FamiliesRequests />
-      {/* <Techtips />
-      <Faq /> */}
     </>
   );
 }

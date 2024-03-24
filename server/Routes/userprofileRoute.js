@@ -11,6 +11,9 @@ router.put('/profile/uploadimage', middleware.authorize, userprofileController.p
 router.put('/profile/updateinfo', middleware.authorize, userprofileController.updateinfo);
 router.put('/profile/updatepassword', middleware.authorize, userprofileController.updatepassword);
 router.get('/profile/myrequests',middleware.authorize, userprofileController.myrequests);
+router.get('/profile/myrequests/:id/applications',middleware.authorize, userprofileController.myrequestapplications);
+router.put('/profile/familyapplcation/:id/ignore',middleware.authorize, userprofileController.ignoreapplication);
+router.put('/profile/request/:id/delete',middleware.authorize, userprofileController.deleterequest);
 
 module.exports = router;
 

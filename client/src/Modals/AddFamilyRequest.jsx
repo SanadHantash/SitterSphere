@@ -435,7 +435,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                 <div className="flex flex-col gap-y-2">
                   <label className="font-bold">Pay</label>
                   <input
-                    type="text"
+                    type="number"
                     name="pay"
                     value={formData.pay}
                     onChange={handleInputChange}
@@ -446,7 +446,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                 <div className="flex flex-col gap-y-2">
                   <label className="font-bold">Date</label>
                   <input
-                    type="date"
+                    type="datetime-local"
                     name="time"
                     value={formData.time}
                     onChange={handleInputChange}

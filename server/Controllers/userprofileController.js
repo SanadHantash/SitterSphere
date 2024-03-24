@@ -197,9 +197,8 @@ const myrequests = async (req,res)=>{
 
 const myrequestapplications = async(req,res)=>{
   try{
-    const userID = req.user.userId;
     const requestID =req.params.id;
-    const applications = await Profile.myrequestapplications(userID,requestID);
+    const applications = await Profile.myrequestapplications(requestID);
       res.status(201).json({ success: true, applications });
 
   } catch (err) {
@@ -208,11 +207,56 @@ const myrequestapplications = async(req,res)=>{
 }
 }
 
+const ignoreapplication = async(req,res)=>{
+  try {
+ 
+
+    const applicationID = req.params.id;
+
+    await Profile.ignoreapplication(applicationID);
+
+    res.status(200).json("sitter deleted successfully");
+  } catch (error) {
+    console.error("Error in updateusers controller:", error);
+    res.status(500).json({ error: "Error in updateusers controller" });
+  }
+}
+
+const deleterequest = async(req,res)=>{
+  try {
+ 
+
+    const requestID = req.params.id;
+
+    await Profile.deleterequest(requestID);
+
+    res.status(200).json("sitter deleted successfully");
+  } catch (error) {
+    console.error("Error in updateusers controller:", error);
+    res.status(500).json({ error: "Error in updateusers controller" });
+  }
+}
+
+const mysittersapplications = async (req,res)=>{
+  try{
+      const userID = req.user.userId;
+      const applications = await Profile.mysittersapplications(userID);
+      res.status(201).json({ success: true, applications });
+  }
+  catch (err) {
+      console.error("Error adding details:", err);
+      res.status(500).json({ success: false, error: "Your details get failed" });
+  }
+}
+
 module.exports = {
   userinfo,
   profilepicture,
   updateinfo,
   updatepassword,
   myrequests,
-  myrequestapplications
+  myrequestapplications,
+  ignoreapplication,
+  deleterequest,
+  mysittersapplications
 };

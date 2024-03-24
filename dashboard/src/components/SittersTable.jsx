@@ -257,7 +257,7 @@ function SittersTable() {
                   <CreateSitter
                     addsitter={createSitter}
                     closeModal={() => setShowCreateModal(false)}
-                    addedSitter={addedSitter} // Pass the addedCourse function
+                    addedSitter={addedSitter} 
                   />
                 )}
              
