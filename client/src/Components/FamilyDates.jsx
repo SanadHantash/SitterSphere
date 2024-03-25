@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { useCookies } from "react-cookie";
 
-function Sittingtimes() {
+function FamilyContracts() {
 
-    const [sittingtimes,setSittingtimes] = useState([]);
+    const [dates,setDates] = useState([]);
     const { headers } = useAuth();
     const [cookies] = useCookies(["token"]);
     const token = cookies.Token;
@@ -16,8 +16,8 @@ function Sittingtimes() {
         const fetchTimes = async () => {
           try {
             axios.defaults.headers.common["Authorization"] = token;
-            const response = await axios.get(`http://localhost:8080/dashboard/sitter/${id}/sittingtimes`);
-            setSittingtimes(response.data.times);
+            const response = await axios.get(`http://localhost:8080/profile/mydates`);
+            setDates(response.data.mydates);
             console.log(response.data);
           } catch (error) {
             console.error("Error fetching applications:", error);
@@ -30,8 +30,8 @@ function Sittingtimes() {
   return (
    <>
     <div className="flex flex-col items-center justify-center">
-  <h1 className="mt-3 mb-3 text-2xl font-semibold text-[#FF90BC]">
-    Sitt times Table
+  <h1 className="mt-10 mb-3 text-2xl font-semibold text-[#FF90BC]">
+    Dates
   </h1>
   <div className="overflow-x-auto">
     <div className="max-w-full">
@@ -42,7 +42,7 @@ function Sittingtimes() {
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
-              User Name
+               Name
             </th>
             <th
               scope="col"
@@ -72,26 +72,20 @@ function Sittingtimes() {
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
-              start date
+              Date
             </th>
             <th
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
-              period
-            </th>
-            <th
-              scope="col"
-              className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
-            >
-              monthly salary
+           Payment
             </th>
 
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-          {sittingtimes &&
-            sittingtimes.map((sittime, index) => (
+          {dates &&
+            dates.map((date, index) => (
               <tr
                 key={index}
                 className={`w-full ${
@@ -100,28 +94,25 @@ function Sittingtimes() {
                 style={{ width: "100%" }}
               >
                 <td className="px-6 py-4 text-sm h-20 font-medium text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.user_name}
+                  {date.user_name}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.email}
+                  {date.email}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.phonenumber}
+                  {date.phonenumber}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.childern_count}
+                  {date.children_count}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.site}
+                  {date.site}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.start_time}
+                  {date.time}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.period}
-                </td>
-                <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.salary}$/monthly
+                  {date.pay}$
                 </td>
               </tr>
             ))}
@@ -135,4 +126,4 @@ function Sittingtimes() {
   )
 }
 
-export default Sittingtimes
+export default FamilyContracts

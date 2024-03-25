@@ -4,7 +4,7 @@ const multer = require("multer");
 const Joi = require("joi");
 const bcrypt = require("bcrypt");
 const { admin } = require("../firebase");
-
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
 
 const storage = multer.memoryStorage();
 const upload = multer({ storage: storage }).single("image");
@@ -206,6 +206,17 @@ const myrequestapplications = async(req,res)=>{
     res.status(500).json({ success: false, error: "Your details get failed" });
 }
 }
+const mysittapplications = async(req,res)=>{
+  try{
+    const userID =req.user.userId;
+    const applications = await Profile.mysittapplications(userID);
+      res.status(201).json({ success: true, applications });
+
+  } catch (err) {
+    console.error("Error adding details:", err);
+    res.status(500).json({ success: false, error: "Your details get failed" });
+}
+}
 
 const ignoreapplication = async(req,res)=>{
   try {
@@ -215,7 +226,7 @@ const ignoreapplication = async(req,res)=>{
 
     await Profile.ignoreapplication(applicationID);
 
-    res.status(200).json("sitter deleted successfully");
+    res.status(200).json("application ignored successfully");
   } catch (error) {
     console.error("Error in updateusers controller:", error);
     res.status(500).json({ error: "Error in updateusers controller" });
@@ -230,22 +241,126 @@ const deleterequest = async(req,res)=>{
 
     await Profile.deleterequest(requestID);
 
-    res.status(200).json("sitter deleted successfully");
+    res.status(200).json("request deleted successfully");
   } catch (error) {
     console.error("Error in updateusers controller:", error);
     res.status(500).json({ error: "Error in updateusers controller" });
   }
 }
 
-const mysittersapplications = async (req,res)=>{
+const myapplications = async (req,res)=>{
   try{
       const userID = req.user.userId;
-      const applications = await Profile.mysittersapplications(userID);
-      res.status(201).json({ success: true, applications });
+      const { role } = req.user;
+      if (role == 'sitter') {
+        const myapplications = await Profile.myfamiliesapplications(userID);
+        res.status(200).json({ success: true, myapplications });
+      }
+  else{
+    const myapplications = await Profile.mysittersapplications(userID);
+    res.status(200).json({ success: true, myapplications });
+  }
   }
   catch (err) {
       console.error("Error adding details:", err);
       res.status(500).json({ success: false, error: "Your details get failed" });
+  }
+}
+
+const createCheckoutSession = async (req, res) => {
+  try {
+    const applicationID = req.params.id;
+   
+    const checkoutObject = {
+      payment_method_types: ["card"],
+      line_items: [
+        {
+          price: "price_1OxqobJHXfBpbbMkuoLfdKYJ",
+          quantity: 1,
+        },
+      ],
+      mode: "payment",
+    };
+
+    const lineItems = checkoutObject.line_items;
+
+    const session = await stripe.checkout.sessions.create({
+      payment_method_types: ['card'],
+      line_items: lineItems,
+      mode: checkoutObject.mode,
+      success_url: `http://localhost:3000/profile`,
+      cancel_url: 'http://localhost:3000/cancel',
+    });
+    await Profile.acceptapplication(applicationID);
+    res.json({ id: session.id });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ success: false, error: 'payment failed' });
+  }
+};
+
+
+const contracts = async(req,res)=>{
+  try{
+    const userID = req.user.userId;
+    const { role } = req.user;
+
+    if (role == 'sitter') {
+      const mycontracts = await Profile.contractsforsitter(userID);
+      res.status(200).json({ success: true, mycontracts });
+    }
+else{
+  const mycontracts = await Profile.contractsforfamily(userID);
+  res.status(200).json({ success: true, mycontracts });
+}
+    
+  }  catch (err) {
+    console.error("Error adding details:", err);
+    res.status(500).json({ success: false, error: "Your details get failed" });
+}
+}
+const dates = async(req,res)=>{
+  try{
+    const userID = req.user.userId;
+    const { role } = req.user;
+
+    if (role == 'sitter') {
+      const mydates = await Profile.datesforsitter(userID);
+      res.status(200).json({ success: true, mydates });
+    }
+else{
+  const mydates = await Profile.datesforfamily(userID);
+  res.status(200).json({ success: true, mydates });
+}
+    
+  }  catch (err) {
+    console.error("Error adding details:", err);
+    res.status(500).json({ success: false, error: "Your details get failed" });
+}
+}
+
+const acceptsitt = async (req,res) =>{
+  try{
+    const applicationID = req.params.id
+    await Profile.acceptsitt(applicationID)
+  }catch (err) {
+    console.error("Error adding details:", err);
+    res.status(500).json({ success: false, error: "Your details get failed" });
+}
+}
+
+const ignoresitt = async(req,res)=>{
+  try {
+ 
+
+    const applicationID = req.params.id;
+
+    await Profile.ignoresitt(applicationID);
+
+    res.status(200).json("application ignored successfully");
+  } catch (error) {
+    console.error("Error in updateusers controller:", error);
+    res.status(500).json({ error: "Error in updateusers controller" });
   }
 }
 
@@ -256,7 +371,13 @@ module.exports = {
   updatepassword,
   myrequests,
   myrequestapplications,
+  mysittapplications,
   ignoreapplication,
   deleterequest,
-  mysittersapplications
+  myapplications,
+  createCheckoutSession,
+  contracts,
+  dates,
+  acceptsitt,
+  ignoresitt
 };

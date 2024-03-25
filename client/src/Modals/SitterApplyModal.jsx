@@ -22,6 +22,8 @@ function SitterApplyModal({ addpplication, closeModal, addedApplication }) {
       years_5: false,
       start_time: "",
       site: "",
+      period:"3months",
+      salary:""
     }
   );
   const { id } = useParams();
@@ -41,7 +43,11 @@ function SitterApplyModal({ addpplication, closeModal, addedApplication }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-  
+    
+    setCreateApplication((prevApplication) => ({
+      ...prevApplication,
+      period: "3months",
+    }));
     const atLeastOneChecked =
       createApplication.months_0_12 ||
       createApplication.years_1_2 ||
@@ -236,6 +242,31 @@ function SitterApplyModal({ addpplication, closeModal, addedApplication }) {
               className="border rounded-md px-2 py-1 mb-2 w-full"
             />
           </div>
+          <div className="flex flex-col gap-y-2">
+            <label className="font-bold">Period</label>
+            <select
+              name="period"
+              value={createApplication.period}
+              onChange={handleInputChange}
+              className="border rounded-md px-2 py-1 mb-2 w-full"
+            >
+              <option value="3months">3 Months</option>
+              <option value="6months">6 Months</option>
+              <option value="9months">9 Months</option>
+              <option value="1year">1 Years</option>
+            </select>
+          </div>
+          <div className="flex flex-col gap-y-2">
+                  <label className="font-bold">Salary per month</label>
+                  <input
+                    type="number"
+                    name="salary"
+                    value={createApplication.salary}
+                    onChange={handleInputChange}
+                    className="border rounded-md px-2 py-1 mb-2 w-full"
+                  />
+                </div>
+
           <div className="flex justify-end">
             <button
               type="submit"

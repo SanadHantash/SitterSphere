@@ -4,9 +4,9 @@ import { useParams } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
 import { useCookies } from "react-cookie";
 
-function Sittingtimes() {
+function FamilyContracts() {
 
-    const [sittingtimes,setSittingtimes] = useState([]);
+    const [contracts,setContracts] = useState([]);
     const { headers } = useAuth();
     const [cookies] = useCookies(["token"]);
     const token = cookies.Token;
@@ -16,8 +16,8 @@ function Sittingtimes() {
         const fetchTimes = async () => {
           try {
             axios.defaults.headers.common["Authorization"] = token;
-            const response = await axios.get(`http://localhost:8080/dashboard/sitter/${id}/sittingtimes`);
-            setSittingtimes(response.data.times);
+            const response = await axios.get(`http://localhost:8080/profile/mycontracts`);
+            setContracts(response.data.mycontracts);
             console.log(response.data);
           } catch (error) {
             console.error("Error fetching applications:", error);
@@ -30,8 +30,8 @@ function Sittingtimes() {
   return (
    <>
     <div className="flex flex-col items-center justify-center">
-  <h1 className="mt-3 mb-3 text-2xl font-semibold text-[#FF90BC]">
-    Sitt times Table
+  <h1 className="mt-10 mb-3 text-2xl font-semibold text-[#FF90BC]">
+    Contracts
   </h1>
   <div className="overflow-x-auto">
     <div className="max-w-full">
@@ -42,7 +42,7 @@ function Sittingtimes() {
               scope="col"
               className="px-6 py-3 text-start text-xs font-medium text-gray-500 uppercase"
             >
-              User Name
+               Name
             </th>
             <th
               scope="col"
@@ -90,8 +90,8 @@ function Sittingtimes() {
           </tr>
         </thead>
         <tbody className="divide-y divide-gray-200">
-          {sittingtimes &&
-            sittingtimes.map((sittime, index) => (
+          {contracts &&
+            contracts.map((contract, index) => (
               <tr
                 key={index}
                 className={`w-full ${
@@ -100,28 +100,28 @@ function Sittingtimes() {
                 style={{ width: "100%" }}
               >
                 <td className="px-6 py-4 text-sm h-20 font-medium text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.user_name}
+                  {contract.user_name}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.email}
+                  {contract.email}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.phonenumber}
+                  {contract.phonenumber}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.childern_count}
+                  {contract.childern_count}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.site}
+                  {contract.site}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.start_time}
+                  {contract.start_time}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.period}
+                  {contract.period}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {sittime.salary}$/monthly
+                  {contract.salary}$/monthly
                 </td>
               </tr>
             ))}
@@ -135,4 +135,4 @@ function Sittingtimes() {
   )
 }
 
-export default Sittingtimes
+export default FamilyContracts

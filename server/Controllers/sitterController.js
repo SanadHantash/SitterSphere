@@ -59,7 +59,7 @@ const applysitter = async(req,res)=>{
         }
             const sitterID = req.params.id;
             const userID= req.user.userId; 
-            const{childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site}=req.body;
+            const{childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site,salary,period}=req.body;
 
             const isApplied = await Sitter.isapplied(userID, sitterID);
     
@@ -67,7 +67,7 @@ const applysitter = async(req,res)=>{
               return res.status(400).json({ success: false, error: "you are already applied for this babysitter" });
             }
 
-            await Sitter.applysitter(sitterID,userID,childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site) ;
+            await Sitter.applysitter(sitterID,userID,childern_count,months_0_12,years_1_2,years_2_3,years_3_5,years_5,start_time,site,salary,period) ;
             res.status(201).json({ success: true, message: "Your application added successfully" });
 
     } catch (err) {

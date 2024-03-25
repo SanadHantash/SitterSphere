@@ -8,6 +8,8 @@ import ProfilePass from "../Components/ProfilePass";
 import PublecProfile from "../Components/PublecProfile";
 import Profilefamily from "../Components/Profilefamily";
 import ProfileSitter from "../Components/ProfileSitter";
+import ProfileApplications from "../Components/ProfileApplications";
+import ProfileDates from "../Components/ProfileDates";
 
 function Profile() {
   const [showSidebar, setShowSidebar] = useState(false);
@@ -91,7 +93,7 @@ function Profile() {
                 }`}
                 onClick={() => setActiveTab("info")}
               >
-                 my info
+                my info
               </button>
             ) : (
               <button
@@ -105,6 +107,25 @@ function Profile() {
                 my request
               </button>
             )}
+
+            <button
+              className={`flex items-center px-3 py-2.5 font-bold border rounded-full ${
+                activeTab === "applications"
+                  ? "bg-white text-indigo-900"
+                  : "bg-white"
+              }`}
+              onClick={() => setActiveTab("applications")}
+            >
+              my applications
+            </button>
+            <button
+              className={`flex items-center px-3 py-2.5 font-bold  border rounded-full ${
+                activeTab === "dates" ? "bg-white  text-indigo-900" : "bg-white"
+              }`}
+              onClick={() => setActiveTab("dates")}
+            >
+              Dates
+            </button>
           </div>
         </aside>
         <div className="w-4/5 p-4 h-full  bg-white  rounded-lg border-b-2 border-r-2 flex-grow ">
@@ -112,6 +133,8 @@ function Profile() {
           {activeTab === "pass" && <ProfilePass />}
           {activeTab === "requests" && <Profilefamily />}
           {activeTab === "info" && <ProfileSitter />}
+          {activeTab === "applications" && <ProfileApplications />}
+          {activeTab === "dates" && <ProfileDates />}
         </div>
       </div>
     </>

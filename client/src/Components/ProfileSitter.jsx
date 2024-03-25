@@ -20,7 +20,7 @@ import years2_3 from "../Assets/1-2years.svg";
 import years3_5 from "../Assets/2-3years.svg";
 import years5 from "../Assets/5+years.svg";
 import SitterInfoModal from "../Modals/SitterInfoModal";
-
+import SitterApplication from "./SitterApplication";
 
 function ProfileSitter() {
   const [sitters, setSitters] = useState([]);
@@ -242,6 +242,7 @@ function ProfileSitter() {
                   Add Info
                 </button>
       {showCreateModal && <SitterInfoModal closeModal={() => setShowCreateModal(false)} addedInfo={addedInfo} />}
+      <SitterApplication />
     </>
   );
 }

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../Assets/logo.png";
+import logo from "../Assets/logo3.png"
 import { useAuth } from "../Context/AuthContext";
 import axios from "axios";
 import Cookies from "js-cookie";
@@ -135,7 +135,7 @@ const Login = () => {
                 <div class="!mt-10">
                   <button
                     type="submit"
-                    class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-indigo-950 hover:bg-indigo-900 "
+                    class="w-full shadow-xl py-2.5 px-4 text-sm font-semibold rounded text-white bg-[#FF90BC] hover:bg-[#FFC0D9] "
                   >
                     Log in
                   </button>

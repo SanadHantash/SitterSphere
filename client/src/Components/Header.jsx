@@ -59,7 +59,6 @@ function Header() {
                 </button>
               </Link>
             </div>
-            {/* <Link to="/profile"> */}
             <div className="relative">
               <button
                 onClick={toggleProfileDropdown}
@@ -173,14 +172,7 @@ function Header() {
                   FamiliesRequests
                 </Link>
               </li>
-              <li>
-                <Link
-                  to="/pricing"
-                  class="block py-2 pl-3 pr-4 text-gray-700 border-b border-gray-100 hover:bg-gray-50 lg:hover:bg-transparent lg:border-0 lg:hover:text-indigo-900  lg:p-0 dark:text-gray-400 lg:dark:hover:text-white dark:hover:bg-gray-700 dark:hover:text-white lg:dark:hover:bg-transparent dark:border-gray-700"
-                >
-                  Pricing
-                </Link>
-              </li>
+        
               <li>
                 <Link
                   to="/about"

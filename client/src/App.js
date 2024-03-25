@@ -12,10 +12,6 @@ import Requests from './Pages/Requests';
 import BabySitterdetail from './Pages/BabySitterdetail';
 import RequestDetail from './Pages/RequestDetail';
 import Contactus from './Pages/Contactus';
-import Subscribe from './Pages/Subscribe';
-import Subscription from './Pages/Subscription';
-import PremiumSubscribe from './Components/CheckoutForm';
-import Success from './Pages/Success';
 import AboutUs from './Pages/AboutUs';
 import Profile from './Pages/Profile';
 import PasswordForget from './Pages/PasswordForget';
@@ -47,10 +43,6 @@ function App() {
           <Route path="/requestDetail/:id" element={<RequestDetail />}/>
           <Route path="/contactus" element={<Contactus />}/>
           <Route path="/about" element={<AboutUs />} />
-          <Route path="/pricing" element={<Subscribe />} />
-            <Route path="/subscribe" element={<Subscription />} />
-            <Route path="/premium-subscribe" element={<PremiumSubscribe />} />
-            <Route path="/successs" element={<Success />} />
             <Route path="/profile" element= {<Profile />} />
             <Route path="/passwordforget" element={<PasswordForget />} />
             <Route path="/verify-code" element={<VerifyCode />} />
