@@ -31,7 +31,7 @@ Sitter.addmydetails = async (
         years_2_3,
         years_3_5,
         years_5,
-        drivers_license,
+        can_drive,
         non_smoker,
         cooking,
         draw,
@@ -99,7 +99,7 @@ Sitter.detail = async (sitterID) => {
       sitters.has_car,sitters.non_smoker,sitters.cooking,sitters.draw,sitters.first_aid,sitters.can_drive,sitters.reading,sitters.music
       from sitters inner join users on users.id = sitters.user_id where sitters.id = $1`,[sitterID]
     );
-    console.log(result);
+   
     const formattedResult = await Promise.all(
       result.rows.map(async (row) => {
         const imageRef = storage.bucket().file("BabySitters/" + row.image);
@@ -130,7 +130,7 @@ Sitter.applysitter = async(sitterID,userID,childern_count,months_0_12,years_1_2,
 
 Sitter.isapplied = async (userID, sitterID) => {
   try {
-    const checkAppliationQuery = 'SELECT * FROM sitter_applications WHERE user_id = $1 AND sitter_id = $2';
+    const checkAppliationQuery = 'SELECT * FROM sitter_applications INNER JOIN sitters ON sitter_applications.sitter_id = sitters.id WHERE sitter_applications.user_id = $1 AND sitter_id = $2 AND sitters.is_deleted = false';
     const checkAppliationResult = await db.query(checkAppliationQuery, [userID, sitterID]);
     return checkAppliationResult.rows.length > 0;
   } catch (err) {
@@ -180,5 +180,11 @@ Sitter.mydetail = async (userID) => {
     throw err;
   }
 };
+
+
+
+
+
+
 
 module.exports = Sitter;

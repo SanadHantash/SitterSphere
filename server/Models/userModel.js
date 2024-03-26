@@ -83,33 +83,6 @@ User.login = async (email) => {
   }
 };
 
-User.checkconfirm = async (userID) => {
-  try {
-    const result = await db.query(
-      "UPDATE users SET role_id = 1 WHERE id = $1 RETURNING *",
-      [userID]
-    );
-    return result[0];
-  } catch (err) {
-    throw err;
-  }
-};
-
-User.createUsersGoogle = async (
-  first_name,
-  last_name,
-  username,
-  email,
-  picture
-) => {
-  const password = "By Google";
-  const query = `INSERT INTO users (first_name,last_name,user_name,email,password,image) VALUES ($1, $2, $3, $4, $5,$6)
-  RETURNING *`;
-
-  const values = [first_name, last_name, username, email, password, picture];
-  const user = await db.query(query, values);
-  return user.rows[0];
-};
 
 User.login = async (email) => {
   try {

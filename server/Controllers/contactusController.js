@@ -4,7 +4,7 @@ const mail = async (req, res) => {
   try {
     const { email,title,message } = req.body;
 
-    console.log("Sender's Email:", email);
+  
 
     const transporter = nodemailer.createTransport({
       service: 'gmail',

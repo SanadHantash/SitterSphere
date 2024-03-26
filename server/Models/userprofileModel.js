@@ -2,10 +2,12 @@ const { application } = require("express");
 const db = require("../config");
 
 const { storage } = require("../firebase");
+const { log } = require("console");
 const Profile = {};
 
 Profile.userinfo = async (userID) => {
   try {
+
     const result = await db.query(
       "SELECT *, REPLACE(users.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/profiles/', '') AS image, roles.role FROM users INNER JOIN roles ON users.role_id = roles.id WHERE users.id = $1 and users.is_deleted = false;",
       [userID]
@@ -29,8 +31,10 @@ Profile.userinfo = async (userID) => {
     throw err;
   }
 };
+
 Profile.usersitterinfo = async (userID) => {
   try {
+ 
     const result = await db.query(
       "SELECT *, REPLACE(users.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/BabySitters/', '') AS image,roles.role FROM users INNER JOIN roles ON users.role_id = roles.id WHERE users.id = $1;",
       [userID]
@@ -54,6 +58,8 @@ Profile.usersitterinfo = async (userID) => {
     throw err;
   }
 };
+
+
 
 Profile.profilepicture = async (userID, imageUrl) => {
   try {
@@ -121,10 +127,7 @@ Profile.updateinfo = async (
       phonenumber,
     ]);
 
-    console.log(
-      `User info updated successfully. Rows affected: ${result.rowCount}`
-    );
-
+ 
     return result.rows;
   } catch (err) {
     console.error("Error updating user info:", err);
@@ -401,9 +404,44 @@ Profile.acceptapplication = async (applicationID) => {
   }
 };
 
+Profile.getrequestofacceptedapplication = async(applicationID) => {
+  try {
+    const result = await db.query(
+      `select requests_applications.request_id from requests_applications where requests_applications.id = $1  `,
+      [applicationID]
+    );
+    return result.rows;
+  } catch (err) {
+    throw err;
+  }
+}
+
+Profile.deleteallapplicationsandrequest = async (requestID) => {
+  try {
+    
+    const result1 = await db.query(
+      "UPDATE requests_applications SET is_deleted = true WHERE request_id = $1",
+      [requestID]
+    );
+
+    const result2 = await db.query(
+      "UPDATE requests SET is_deleted = true WHERE id = $1",
+      [requestID]
+    );
+
+   
+    return { result1, result2 };
+  } catch (err) {
+    console.error("Error deleting applications and request:", err);
+    throw err;
+  }
+};
+
+
+
 Profile.contractsforfamily = async (userID) => {
   try {
-    console.log("helloooooo");
+   
     const result = await db.query(
       `SELECT 
         sittings_time.id,
@@ -451,7 +489,7 @@ Profile.contractsforfamily = async (userID) => {
 
 Profile.contractsforsitter = async (userID) => {
   try {
-    console.log("wowwwwwwwww");
+    
     const result = await db.query(
       `SELECT 
                 sittings_time.id,
@@ -504,7 +542,7 @@ Profile.contractsforsitter = async (userID) => {
 
 Profile.datesforfamily = async (userID) => {
   try {
-    console.log("bbbb");
+ 
     const result = await db.query(
       `SELECT 
         familysitting_time.id,
@@ -552,8 +590,7 @@ Profile.datesforfamily = async (userID) => {
 
 Profile.datesforsitter = async (userID) => {
   try {
-    console.log("aaaaaa");
-    const result = await db.query(
+     const result = await db.query(
       `SELECT 
       familysitting_time.id,
       requests.site,
@@ -605,6 +642,7 @@ Profile.datesforsitter = async (userID) => {
   }
 };
 
+
 Profile.acceptsitt = async (applicationID) => {
   try {
     const result = await db.query(
@@ -616,6 +654,8 @@ Profile.acceptsitt = async (applicationID) => {
     throw err;
   }
 };
+
+
 
 Profile.ignoresitt = async (applicationID) => {
   try {

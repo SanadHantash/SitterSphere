@@ -165,6 +165,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                     value={formData.title}
                     onChange={handleInputChange}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
+                    required
                   />
                 </div>
                 <div className="flex flex-col gap-y-2">
@@ -176,6 +177,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                     maxLength={500}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
                     rows={4}
+                    required
                   />
                   <p className="text-sm text-gray-500">{`${formData.description.length}/500 characters`}</p>
                 </div>

@@ -135,7 +135,7 @@ const allusers = async (req, res) => {
     const users = await Dashboard.allusers(page, pageSize);
     const totalCount = await Dashboard.countusers();
     const totalPages = Math.ceil(totalCount / pageSize);
-    console.log(totalCount, totalPages);
+  
     return res
       .status(200)
       .json({ succes: true, users, totalCount, totalPages });
@@ -272,7 +272,7 @@ const allfamiliesrequests = async (req, res) => {
     const requests = await Dashboard.allfamiliesrequests(page, pageSize);
     const totalCount = await Dashboard.countrequests();
     const totalPages = Math.ceil(totalCount / pageSize);
-    console.log(totalCount, totalPages);
+
     return res
       .status(200)
       .json({ succes: true, requests, totalCount, totalPages });
@@ -362,9 +362,7 @@ const countsitterapplications = async (req, res) => {
     }
     const sitterID = req.params.id;
     const count = await Dashboard.countsitterapplications(sitterID);
-    console.log(count);
-    console.log("helloooo");
-    console.log(sitterID);
+ 
     return res.status(200).json({ succes: true, count });
   } catch (err) {
     console.error(err);

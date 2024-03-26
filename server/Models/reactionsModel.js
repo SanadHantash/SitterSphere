@@ -15,26 +15,6 @@ Reaction.addrate = async (sitterID, userID, rate) => {
 };
 
 
-// Reaction.addcomment = async(productId, userID, comment) => {
-//     try{
-//         const userID = 38;
-//         const result = await db.query ('insert into reaction (user_id ,product_id, comment) values ($1,$2,$3) RETURNING *;', [userID, productId, comment]);
-//         return 'done';
-//     } catch(error){
-//         console.error(error);
-//         throw error;
-//     }
-// }
 
-// Reaction.getcomments = async(productId) => {
-//     try{
-//         const result = await db.query('select reaction.comment,users.username from reaction inner join users on users.id = reaction.user_id;'[productId]);
-//         console.log(result.rows);
-//         return result.rows;
-//     } catch(error){
-//         console.error(error);
-//         throw error;
-//     }
-// }
 
 module.exports = Reaction

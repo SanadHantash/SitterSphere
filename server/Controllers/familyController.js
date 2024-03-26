@@ -79,7 +79,7 @@ const addrequest = async (req, res) => {
 
 
 
-const allrequests = async (req, res, next) => {
+const allrequests = async (req, res) => {
 
   try {
     const page = parseInt(req.query.page) || 1;

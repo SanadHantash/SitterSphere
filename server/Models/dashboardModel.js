@@ -288,7 +288,7 @@ Dashboard.detail = async (sitterID) => {
       from sitters inner join users on users.id = sitters.user_id where sitters.id = $1`,
       [sitterID]
     );
-    console.log(result);
+  
     const formattedResult = await Promise.all(
       result.rows.map(async (row) => {
         const imageRef = storage.bucket().file("BabySitters/" + row.image);

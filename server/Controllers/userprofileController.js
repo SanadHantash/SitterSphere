@@ -35,19 +35,31 @@ const userinfo = async (req, res) => {
 const profilepicture = async (req, res) => {
   try {
     const userID = req.user.userId;
+   
+     
     upload(req, res, async function (err) {
       if (err) {
         return res.status(400).json({ success: false, error: err.message });
       }
 
       const imageBuffer = req.file ? req.file.buffer : null;
+      const { role } = req.user;
+      if (role == 'sitter') {
+       const imageUrl = await uploadImageToFirebaseforsiiter(imageBuffer);
+       await Profile.profilepicture(userID, imageUrl);
+       res.status(201)
+       .json({ success: true, message: "image added successfully" });
+      }
+else{
+  const imageUrl = await uploadImageToFirebase(imageBuffer);
 
-      const imageUrl = await uploadImageToFirebase(imageBuffer);
+  await Profile.profilepicture(userID, imageUrl);
+  res
+    .status(201)
+    .json({ success: true, message: "image added successfully" });
 
-      await Profile.profilepicture(userID, imageUrl);
-      res
-        .status(201)
-        .json({ success: true, message: "image added successfully" });
+}
+    
     });
   } catch (err) {
     console.error(err);
@@ -61,6 +73,25 @@ const uploadImageToFirebase = async (imageBuffer) => {
   const folderPath = "profiles/";
 
   const uniqueFilename = "profile-" + Date.now() + ".png";
+
+  const filePath = folderPath + uniqueFilename;
+
+  const file = bucket.file(filePath);
+
+  await file.createWriteStream().end(imageBuffer);
+
+  const imageUrl = `https://storage.googleapis.com/${bucket.name}/${filePath}`;
+
+  return imageUrl;
+};
+const uploadImageToFirebaseforsiiter = async (imageBuffer) => {
+  
+  
+  const bucket = admin.storage().bucket();
+  
+  const folderPath = "BabySitters/";
+
+  const uniqueFilename = "image-" + Date.now() + ".png";
 
   const filePath = folderPath + uniqueFilename;
 
@@ -268,9 +299,10 @@ const myapplications = async (req,res)=>{
 }
 
 const createCheckoutSession = async (req, res) => {
+
   try {
+    let paymentSuccessful = false;
     const applicationID = req.params.id;
-   
     const checkoutObject = {
       payment_method_types: ["card"],
       line_items: [
@@ -282,21 +314,34 @@ const createCheckoutSession = async (req, res) => {
       mode: "payment",
     };
 
-    const lineItems = checkoutObject.line_items;
-
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
-      line_items: lineItems,
+      line_items: checkoutObject.line_items,
       mode: checkoutObject.mode,
       success_url: `http://localhost:3000/profile`,
       cancel_url: 'http://localhost:3000/cancel',
     });
-    await Profile.acceptapplication(applicationID);
+
     res.json({ id: session.id });
+    paymentSuccessful = true; 
+    if (paymentSuccessful) {
+      try {
+       
+        await Profile.acceptapplication(applicationID);
+        const requestID = (await Profile.getrequestofacceptedapplication(applicationID))[0].request_id;
+       
+        await Profile.deleteallapplicationsandrequest(requestID);
+      } catch (error) {
+        console.error("Error processing application:", error);
+        return res.status(500).json({ success: false, error: 'Error processing application' });
+      }
+    }
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ success: false, error: 'payment failed' });
+    console.error("Error creating checkout session:", error);
+    return res.status(500).json({ success: false, error: 'Payment failed' });
   }
+
+  
 };
 
 

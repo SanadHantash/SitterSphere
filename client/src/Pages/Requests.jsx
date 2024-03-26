@@ -62,14 +62,16 @@ function Requests() {
             <p className="mt-2 text-gray-600">
             Location:  {request.address}.
             </p>
+          
             <div className="mt-5">
-              <button
-                type="button"
-                className="inline-flex items-center rounded-md border border-transparent bg-[#FF90BC] px-5 py-4 text-sm font-medium leading-4 text-white shadow-sm hover:bg-[#FFC0D9]"
-              >
-                Read More
-              </button>
-            </div>
+                  <Link to={`/RequestDetail/${request.id}`}>
+                    <button 
+                    type="button"
+                    className="inline-flex items-center rounded-md border border-transparent bg-[#FF90BC] px-5 py-4 text-sm font-medium leading-4 text-white shadow-sm hover:bg-[#FFC0D9]">
+                    Read More
+                    </button>
+                  </Link>
+                </div>
           </div>
         </a>
       ))

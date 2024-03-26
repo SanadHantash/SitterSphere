@@ -7,11 +7,7 @@ const addmydetails = async (req, res) => {
     try {
         const userID = req.user.userId;
         const {description,months_0_12,years_1_2,years_2_3,years_3_5,years_5,can_drive, non_smoker, cooking, draw, first_aid,reading,has_car,music,experience_level,salary } = req.body;
-        const isFound = await Sitter.mydetail(userID);
-    
-        if (isFound) {
-          return res.status(400).json({ success: false, error: "you  already added your Info" });
-        }
+     
 
         await Sitter.addmydetails(userID,description,months_0_12,years_1_2,years_2_3,years_3_5,years_5,can_drive, non_smoker, cooking, draw, first_aid,reading,has_car,music,experience_level,salary);
 

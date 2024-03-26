@@ -87,7 +87,7 @@ const register = async (req, res) => {
       address,
       imageUrl
     );
-    console.log(user);
+    
     const token = jwt.sign(
       {
         userId: user.id,
@@ -99,7 +99,7 @@ const register = async (req, res) => {
       { expiresIn: "4h" }
     );
     res.cookie("token", token);
-    console.log(token);
+  
     res
       .status(201)
       .json({ success: true, message: "User added successfully", token, user });
@@ -161,7 +161,7 @@ const login = async (req, res) => {
         .json({ success: false, message: "Invalid email or password" });
     }
 
-    console.log(user.id);
+   
     const token = jwt.sign(
       {
         userId: user.id,
@@ -183,60 +183,7 @@ const login = async (req, res) => {
 };
 
 
-const createCheckoutSession = async (req, res) => {
-  try {
-    const userID = req.user.userId;
 
-    const checkoutObject = {
-      payment_method_types: ["card"],
-      line_items: [
-        {
-          price: "price_1OhHB8JHXfBpbbMkpIc73EZo",
-          quantity: 1,
-        },
-      ],
-      mode: "subscription",
-    };
-
-    const customer = await stripe.customers.create({
-      email: req.user.email,
-      name: req.user.username,
-      metadata: {
-        userId: userID,
-      },
-    });
-
-    const session = await stripe.checkout.sessions.create({
-      customer: customer.id,
-      success_url: "http://localhost:3000/successs",
-      cancel_url: "http://localhost:3000/cancel",
-      line_items: checkoutObject.line_items,
-      mode: checkoutObject.mode,
-      subscription_data: checkoutObject.subscription_data,
-    });
-
-    res.json({ id: session.id });
-    await User.checkconfirm(userID);
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ success: false, error: "Payment failed" });
-  }
-};
-
-
-const updateuserrole = async (req, res) => {
-  try {
-   
-    const userID = req.user.userId;
-    await User.checkconfirm(userID);
-    res.status(200).json({ success: true, message: "user updated success" });
-  } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .json({ success: false, error: "User Role updated failed" });
-  }
-};
 
 const forgetpassword = async (req, res) => {
   const transporter = nodemailer.createTransport({
@@ -334,9 +281,7 @@ module.exports = {
   register,
   login,
   cont,
-  createCheckoutSession,
   forgetpassword,
   verifycode,
   resetpassword,
-  updateuserrole,
 };
