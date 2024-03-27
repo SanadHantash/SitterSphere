@@ -313,7 +313,7 @@ Profile.mysittersapplications = async (userID) => {
       `select sitter_applications.id,users.user_name,sitter_applications.childern_count,sitter_applications.start_time,
         REPLACE(users.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/BabySitters/', '') AS image
         ,sitter_applications.months_0_12,sitter_applications.years_1_2,sitter_applications.years_2_3,sitter_applications.years_3_5,sitter_applications.years_5
-        ,sitter_applications.salary,sitter_applications.period from sitter_applications inner join sitters on sitter_applications.sitter_id = sitters.id inner join users on sitters.user_id = users.id where sitter_applications.user_id = $1`,
+        ,sitter_applications.salary,sitter_applications.period from sitter_applications inner join sitters on sitter_applications.sitter_id = sitters.id inner join users on sitters.user_id = users.id where sitter_applications.user_id = $1 and sitter_applications.is_deleted = false `,
       [userID]
     );
     const formattedResult = await Promise.all(
@@ -361,7 +361,7 @@ Profile.myfamiliesapplications = async (userID) => {
          inner join sitters on requests_applications.sitter_id = sitters.id 
          inner join users on sitters.user_id = users.id 
          inner join requests on requests.id = requests_applications.request_id
-         where requests_applications.user_id = $1`,
+         where requests_applications.user_id = $1 and requests_applications.is_deleted = false`,
       [userID]
     );
     const formattedResult = await Promise.all(
@@ -499,6 +499,7 @@ Profile.contractsforsitter = async (userID) => {
                 sitter_user.user_name AS user_name,
                 sitter_user.email email,
                 sitter_user.phonenumber AS phonenumber,
+                sitter_user.address AS address,
                 sitter_applications.site,
                 sitter_applications.childern_count,
                 sitter_applications.start_time,
@@ -602,7 +603,8 @@ Profile.datesforsitter = async (userID) => {
       requests.pay,
       request_user.user_name AS user_name,
       request_user.email AS email,
-      request_user.phonenumber AS phonenumber
+      request_user.phonenumber AS phonenumber,
+      request_user.address AS address
   FROM 
       familysitting_time
   INNER JOIN 
@@ -661,6 +663,19 @@ Profile.acceptsitt = async (applicationID) => {
 
 
 Profile.ignoresitt = async (applicationID) => {
+  try {
+    const result = await db.query(
+      "UPDATE sitter_applications SET is_deleted = true WHERE id = $1",
+      [applicationID]
+    );
+    return result.rows;
+  } catch (err) {
+    console.error("Error fetching request applications:", err);
+    throw err;
+  }
+};
+
+Profile.deleteapplication = async (applicationID) => {
   try {
     const result = await db.query(
       "UPDATE sitter_applications SET is_deleted = true WHERE id = $1",

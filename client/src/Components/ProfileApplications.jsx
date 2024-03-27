@@ -80,7 +80,7 @@ function ProfileApplications() {
                 </div>
                 </div>
                 <div className="flex flex-row gap-2 mt-4">
-                <div className="block mt-1 text-lg font-medium text-[#FFC0D9]">
+                <div className="block mt-1 text-lg font-medium w-full text-[#FFC0D9]">
                    {application.start_time}
                    {application.time}
                 </div>
@@ -92,9 +92,8 @@ function ProfileApplications() {
                   {application.salary} 
                   {application.pay}$
                 </div>
-                </div>
-              
-                <div className="flex items-center mt-4 text-gray-600">
+                <div className="flex flex-col">
+              <div className="flex items-center mt-4 text-gray-600">
                   {application.months_0_12 && (
                     <img
                       src={months}
@@ -134,6 +133,8 @@ function ProfileApplications() {
                       className="w-8 h-8 inline-block mr-2"
                     />
                   )}
+
+                  
                 </div>
                 <div className="flex items-center mt-4 text-gray-600">
                       {application.cooking && (
@@ -197,6 +198,11 @@ function ProfileApplications() {
                       )}
                     </div>
               </div>
+                </div>
+          
+              
+              </div>
+              
               </div>
         ))
       ) : (

@@ -241,6 +241,7 @@ const mysittapplications = async(req,res)=>{
   try{
     const userID =req.user.userId;
     const applications = await Profile.mysittapplications(userID);
+   
       res.status(201).json({ success: true, applications });
 
   } catch (err) {
@@ -387,7 +388,8 @@ else{
 const acceptsitt = async (req,res) =>{
   try{
     const applicationID = req.params.id
-    await Profile.acceptsitt(applicationID)
+    await Profile.acceptsitt(applicationID);
+    await Profile.deleteapplication(applicationID);
   }catch (err) {
     console.error("Error adding details:", err);
     res.status(500).json({ success: false, error: "Your details get failed" });
