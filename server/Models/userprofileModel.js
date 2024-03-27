@@ -552,7 +552,8 @@ Profile.datesforfamily = async (userID) => {
         requests.site,
         requests.children_count,
         requests.time,
-        requests.pay
+        requests.pay,
+        users.address
     FROM 
         familysitting_time
     INNER JOIN 
@@ -561,6 +562,8 @@ Profile.datesforfamily = async (userID) => {
         requests ON requests.id = requests_applications.request_id  
     INNER JOIN 
         users AS sitter_users ON sitter_users.id = requests_applications.user_id
+        INNER JOIN 
+        users ON users.id = requests.user_id
     WHERE 
         requests.user_id = $1;`,
       [userID]

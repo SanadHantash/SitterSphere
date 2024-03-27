@@ -6,7 +6,7 @@ import { useCookies } from "react-cookie";
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../Context/AuthContext";
-//import GoolgeSignInButton from "../Components/GoogleSignup";
+
 
 function RegisterPage() {
   const [cookies, setCookie] = useCookies(["token"]);

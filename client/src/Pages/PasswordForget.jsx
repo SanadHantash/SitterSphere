@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import background from "../Assets/back.png";
+import background from "../Assets/background.avif";
 
 function PasswordForget() {
   const [email, setEmail] = useState("");

@@ -22,7 +22,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
     addrequest || {
       title: "",
       description: "",
-      childern_count: 1,
+      children_count: 1,
       months_0_12: false,
       years_1_2: false,
       years_2_3: false,
@@ -37,7 +37,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
       reading: false,
       music: false,
       time: "",
-      pay: "",
+      pay: 5,
       image: null,
     }
   );
@@ -67,7 +67,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
       const form = new FormData();
       form.append("title", formData.title);
       form.append("description", formData.description);
-      form.append("childern_count", formData.childern_count);
+      form.append("children_count", formData.children_count);
       form.append("months_0_12", formData.months_0_12);
       form.append("years_1_2", formData.years_1_2);
       form.append("years_2_3", formData.years_2_3);
@@ -165,8 +165,10 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                     value={formData.title}
                     onChange={handleInputChange}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
+                    maxLength={50}
                     required
                   />
+                    <p className="text-sm text-gray-500">{`${formData.title.length}/50 characters`}</p>
                 </div>
                 <div className="flex flex-col gap-y-2">
                   <label className="font-bold">Description</label>
@@ -185,8 +187,8 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                   <label className="font-bold">Counts of children</label>
                   <input
                     type="number"
-                    name="childern_count"
-                    value={formData.childern_count}
+                    name="children_count"
+                    value={formData.children_count}
                     onChange={handleInputChange}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
                     min="1"
@@ -443,6 +445,7 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                     onChange={handleInputChange}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
                     placeholder="how much would you pay"
+                    min={5}
                   />
                 </div>
                 <div className="flex flex-col gap-y-2">
@@ -456,22 +459,22 @@ function AddFamilyRequest({ addrequest, closeModal, addedRequest }) {
                   />
                 </div>
                 <div className="flex flex-col gap-y-2">
-                  <label className="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
-                    Profile Picture
+                  <label className=" font-bold">
+                    Request Picture
                   </label>
                   <input
                     type="file"
                     name="image"
                     onChange={handleImageChange}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
-                    required=""
+                    required
                   />
                 </div>
                 {formData.image && (
                   <img
                     src={URL.createObjectURL(formData.image)}
                     alt="Selected Image"
-                    style={{ maxWidth: "100%", maxHeight: "200px" }}
+                    style={{ maxWidth: "100%", maxHeight: "100%" }}
                   />
                 )}
                 <div className="flex justify-end">

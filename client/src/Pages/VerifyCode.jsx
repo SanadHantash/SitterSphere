@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import background from "../Assets/back.png";
+import background from "../Assets/background.avif";
 
 import axios from "axios";
 import { useNavigate } from "react-router-dom";

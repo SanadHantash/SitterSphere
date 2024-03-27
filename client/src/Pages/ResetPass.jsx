@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
-import background from "../Assets/back.png";
+import background from "../Assets/background.avif";
 
 import Swal from "sweetalert2";
 import { useNavigate } from "react-router-dom";

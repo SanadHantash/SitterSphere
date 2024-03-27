@@ -17,7 +17,7 @@ Home.topratedsitters = async () => {
   INNER JOIN 
       users ON users.id = sitters.user_id
   WHERE 
-      sitters.is_deleted = false 
+      sitters.is_deleted = false  and sitters.rate is not null
   ORDER BY 
       rate DESC 
   LIMIT 10;

@@ -78,7 +78,7 @@ Family.allrequests = async (page, pageSize) => {
         users.address,
         REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
         requests.children_count,
-        time
+        requests.time
       FROM 
         requests
       INNER JOIN 

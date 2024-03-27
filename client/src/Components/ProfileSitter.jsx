@@ -18,6 +18,7 @@ import years2_3 from "../Assets/1-2years.svg";
 import years3_5 from "../Assets/2-3years.svg";
 import years5 from "../Assets/5+years.svg";
 import SitterApplication from "./SitterApplication";
+import profile from "../Pages/Profile"
 
 function ProfileSitter() {
   const [sitters, setSitters] = useState([]);
@@ -41,7 +42,7 @@ function ProfileSitter() {
       reading: false,
       music: false,
       description:"",
-      salary:""
+      salary:200
     }
   );
 
@@ -195,7 +196,7 @@ function ProfileSitter() {
                     onChange={handleInputChange}
                     maxLength={500}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
-                    rows={4}
+                    rows={8}
                     required
                   />
                  <p className="text-sm text-gray-500">{`${(createInfo.description || '').length}/500 characters`}</p>

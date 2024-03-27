@@ -21,9 +21,9 @@ function SitterApplyModal({ addpplication, closeModal, addedApplication }) {
       years_3_5: false,
       years_5: false,
       start_time: "",
-      site: "",
+
       period:"3months",
-      salary:""
+      salary:200
     }
   );
   const { id } = useParams();
@@ -264,6 +264,7 @@ function SitterApplyModal({ addpplication, closeModal, addedApplication }) {
                     value={createApplication.salary}
                     onChange={handleInputChange}
                     className="border rounded-md px-2 py-1 mb-2 w-full"
+                    min={200}
                   />
                 </div>
 

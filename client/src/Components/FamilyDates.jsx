@@ -106,7 +106,7 @@ function FamilyContracts() {
                   {date.children_count}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
-                  {date.site}
+                  {date.address}
                 </td>
                 <td className="px-6 py-4 text-sm h-20 text-gray-800 dark:text-gray-200 overflow-hidden overflow-ellipsis">
                   {date.time}

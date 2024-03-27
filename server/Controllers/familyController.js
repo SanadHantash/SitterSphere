@@ -84,8 +84,7 @@ const allrequests = async (req, res) => {
   try {
     const page = parseInt(req.query.page) || 1;
     const pageSize = parseInt(req.query.pageSize) || 6;
-
-    const requests = await Family.allrequests(page, pageSize);
+    const requests = await Family.allrequests(page,pageSize);
     const totalCount = await Dashboard.countrequests();
     const totalPages = Math.ceil(totalCount / pageSize);
     res.status(200).json({ success: true, requests,totalCount, totalPages });

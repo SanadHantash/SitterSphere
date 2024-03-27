@@ -177,7 +177,7 @@ Dashboard.allfamiliesrequests = async (page, pageSize) => {
       requests.id,
       requests.title,
       requests.description,
-      requests.start_time,
+      requests.time,
       REPLACE(requests.image, 'https://storage.googleapis.com/sittersphere-bfd8b.appspot.com/requests/', '') AS image,
       requests.children_count
     FROM 
@@ -198,8 +198,8 @@ Dashboard.allfamiliesrequests = async (page, pageSize) => {
 
     const formattedResult = await Promise.all(
       result.rows.map(async (row) => {
-        if (row.start_time !== null) {
-          row.start_time = row.start_time.toLocaleDateString("en-US", {
+        if (row.time !== null) {
+          row.time = row.time.toLocaleDateString("en-US", {
             weekday: "long",
             year: "numeric",
             month: "long",
